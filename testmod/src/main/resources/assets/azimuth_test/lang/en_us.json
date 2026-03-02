@@ -1,0 +1,10 @@
+{
+  "block.azimuth_test.magic_tank": "Magic Tank",
+  "item.azimuth_test.magic_tank": "Magic Tank",
+  "azimuth_test.tooltip.magic_stats": "Magical Stats:",
+  "azimuth_test.tooltip.mana_stored": "Stored Mana",
+  "azimuth_test.tooltip.unit.mana": "Mana",
+  "azimuth_test.tooltip.mana_bar": "Mana Bar:",
+  "azimuth_test.tooltip.mana_capacity": "Mana capacity:",
+  "azimuth_test.tooltip.sneak_hint": "Hint: Sneak for more info"
+}

@@ -1,0 +1,12 @@
+{
+  "entryCount": 6,
+  "modId": "azimuth_test",
+  "verifiedKeys": [
+    "azimuth_test.tooltip.magic_stats",
+    "azimuth_test.tooltip.mana_stored",
+    "azimuth_test.tooltip.mana_bar",
+    "azimuth_test.tooltip.mana_capacity",
+    "azimuth_test.tooltip.sneak_hint",
+    "azimuth_test.tooltip.unit.mana"
+  ]
+}

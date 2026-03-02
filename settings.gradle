@@ -9,3 +9,5 @@ plugins {
 }
 
 rootProject.name = 'azimuth'
+
+include('testmod')

@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="azimuth_test"
+version="1.0.0"
+displayName="Azimuth Test Mod"
+authors="Cake"
+description='''
+Internal test mod for validating Azimuth goggle API behavior.
+'''
+
+[[dependencies.azimuth_test]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.219,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.azimuth_test]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.azimuth_test]]
+modId="azimuth"
+type="required"
+versionRange="[1.0.0,)"
+ordering="AFTER"
+side="BOTH"
