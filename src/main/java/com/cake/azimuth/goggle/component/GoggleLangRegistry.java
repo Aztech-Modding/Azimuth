@@ -17,13 +17,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
 
 public class GoggleLangRegistry {
 
     private static final Map<String, Map<String, String>> ENTRIES_BY_MOD = new ConcurrentHashMap<>();
 
 
-    public static void provideLang(final String modId, final java.util.function.BiConsumer<String, String> consumer) {
+    public static void provideLang(final String modId, final BiConsumer<String, String> consumer) {
         final Map<String, String> entries = ENTRIES_BY_MOD.get(modId);
         if (entries != null) {
             entries.forEach(consumer);

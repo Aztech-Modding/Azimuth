@@ -6,11 +6,11 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -25,7 +25,7 @@ public class GoggleLangDataProvider implements DataProvider {
     }
 
     @Override
-    public CompletableFuture<?> run(@Nonnull final CachedOutput cache) {
+    public @NotNull CompletableFuture<?> run(@Nonnull final CachedOutput cache) {
         GoggleLangRegistry.collectFromRegisteredBlockEntities();
         final PackOutput.PathProvider pathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "lang");
         final Map<String, Map<String, String>> entriesByMod = GoggleLangRegistry.snapshot();
@@ -38,9 +38,9 @@ public class GoggleLangDataProvider implements DataProvider {
             if (sortedEntries.isEmpty()) {
                 return;
             }
-            
+
             sortedEntries.sort(Map.Entry.comparingByKey());
-            
+
             final JsonObject json = new JsonObject();
             sortedEntries.forEach(e -> json.addProperty(e.getKey(), e.getValue()));
 
@@ -52,7 +52,7 @@ public class GoggleLangDataProvider implements DataProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "Azimuth Goggle Tooltip Language Entries";
     }
 }

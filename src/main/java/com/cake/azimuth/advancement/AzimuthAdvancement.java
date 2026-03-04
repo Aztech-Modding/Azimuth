@@ -1,7 +1,7 @@
 package com.cake.azimuth.advancement;
 
-import com.simibubi.create.foundation.advancement.CreateAdvancement;
 import com.simibubi.create.foundation.advancement.AllTriggers;
+import com.simibubi.create.foundation.advancement.CreateAdvancement;
 import com.simibubi.create.foundation.advancement.SimpleCreateTrigger;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import net.minecraft.advancements.Advancement;
@@ -41,7 +41,7 @@ public class AzimuthAdvancement {
     private String title;
     private String description;
 
-    public AzimuthAdvancement(String modId, String id, UnaryOperator<Builder> builder, Consumer<AzimuthAdvancement> entryCollector) {
+    public AzimuthAdvancement(final String modId, final String id, final UnaryOperator<Builder> builder, final Consumer<AzimuthAdvancement> entryCollector) {
         this.modId = modId;
         this.id = id;
 
@@ -71,19 +71,19 @@ public class AzimuthAdvancement {
         return ResourceLocation.fromNamespaceAndPath(modId, id);
     }
 
-    public boolean isAlreadyAwardedTo(Player player) {
-        if (!(player instanceof ServerPlayer sp)) {
+    public boolean isAlreadyAwardedTo(final Player player) {
+        if (!(player instanceof final ServerPlayer sp)) {
             return true;
         }
-        AdvancementHolder advancement = sp.getServer().getAdvancements().get(idAsResource());
+        final AdvancementHolder advancement = sp.getServer().getAdvancements().get(idAsResource());
         if (advancement == null) {
             return true;
         }
         return sp.getAdvancements().getOrStartProgress(advancement).isDone();
     }
 
-    public void awardTo(Player player) {
-        if (!(player instanceof ServerPlayer sp)) {
+    public void awardTo(final Player player) {
+        if (!(player instanceof final ServerPlayer sp)) {
             return;
         }
         if (builtinTrigger == null) {
@@ -92,7 +92,7 @@ public class AzimuthAdvancement {
         builtinTrigger.trigger(sp);
     }
 
-    public void save(Consumer<AdvancementHolder> consumer) {
+    public void save(final Consumer<AdvancementHolder> consumer) {
         if (parentSupplier != null) {
             mcBuilder.parent(parentSupplier.get());
         }
@@ -115,7 +115,7 @@ public class AzimuthAdvancement {
         mcBuilder.save(consumer, idAsResource().toString());
     }
 
-    public void provideLang(BiConsumer<String, String> consumer) {
+    public void provideLang(final BiConsumer<String, String> consumer) {
         consumer.accept(titleKey(), title);
         consumer.accept(descriptionKey(), description);
     }
@@ -132,7 +132,7 @@ public class AzimuthAdvancement {
         private final boolean announce;
         private final boolean hide;
 
-        TaskType(AdvancementType advancementType, boolean toast, boolean announce, boolean hide) {
+        TaskType(final AdvancementType advancementType, final boolean toast, final boolean announce, final boolean hide) {
             this.advancementType = advancementType;
             this.toast = toast;
             this.announce = announce;
@@ -148,56 +148,56 @@ public class AzimuthAdvancement {
         private ItemStack icon;
         private Supplier<ItemStack> iconSupplier;
 
-        public Builder special(TaskType type) {
+        public Builder special(final TaskType type) {
             this.type = type;
             return this;
         }
 
-        public Builder after(AzimuthAdvancement other) {
+        public Builder after(final AzimuthAdvancement other) {
             AzimuthAdvancement.this.parentSupplier = other::idAsResource;
             return this;
         }
 
-        public Builder after(CreateAdvancement other) {
+        public Builder after(final CreateAdvancement other) {
             AzimuthAdvancement.this.parentSupplier = () -> CreateAdvancementIdAccessor.asId(other);
             return this;
         }
 
-        public Builder after(Supplier<CreateAdvancement> other) {
+        public Builder after(final Supplier<CreateAdvancement> other) {
             AzimuthAdvancement.this.parentSupplier = () -> CreateAdvancementIdAccessor.asId(other.get());
             return this;
         }
 
-        public Builder after(ResourceLocation parentId) {
+        public Builder after(final ResourceLocation parentId) {
             AzimuthAdvancement.this.parentSupplier = () -> parentId;
             return this;
         }
 
-        public Builder icon(ItemProviderEntry<?, ?> item) {
+        public Builder icon(final ItemProviderEntry<?, ?> item) {
             this.iconSupplier = item::asStack;
             return this;
         }
 
-        public Builder icon(ItemLike item) {
+        public Builder icon(final ItemLike item) {
             return icon(new ItemStack(item));
         }
 
-        public Builder icon(ItemStack stack) {
+        public Builder icon(final ItemStack stack) {
             this.icon = stack;
             return this;
         }
 
-        public Builder title(String title) {
+        public Builder title(final String title) {
             AzimuthAdvancement.this.title = title;
             return this;
         }
 
-        public Builder description(String description) {
+        public Builder description(final String description) {
             AzimuthAdvancement.this.description = description;
             return this;
         }
 
-        public Builder whenBlockPlaced(Block block) {
+        public Builder whenBlockPlaced(final Block block) {
             return externalTrigger(ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(block));
         }
 
@@ -205,15 +205,15 @@ public class AzimuthAdvancement {
             return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(icon.getItem()));
         }
 
-        public Builder whenItemCollected(ItemProviderEntry<?, ?> item) {
+        public Builder whenItemCollected(final ItemProviderEntry<?, ?> item) {
             return whenItemCollected(item.asStack().getItem());
         }
 
-        public Builder whenItemCollected(ItemLike itemProvider) {
+        public Builder whenItemCollected(final ItemLike itemProvider) {
             return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(itemProvider));
         }
 
-        public Builder whenItemCollected(TagKey<Item> tag) {
+        public Builder whenItemCollected(final TagKey<Item> tag) {
             return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(tag).build()));
         }
 
@@ -221,7 +221,7 @@ public class AzimuthAdvancement {
             return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[]{}));
         }
 
-        public Builder externalTrigger(Criterion<?> trigger) {
+        public Builder externalTrigger(final Criterion<?> trigger) {
             mcBuilder.addCriterion(String.valueOf(keyIndex), trigger);
             externalTrigger = true;
             keyIndex++;

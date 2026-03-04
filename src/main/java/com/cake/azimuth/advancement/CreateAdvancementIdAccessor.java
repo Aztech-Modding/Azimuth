@@ -8,8 +8,8 @@ public interface CreateAdvancementIdAccessor {
 
     String azimuth$getId();
 
-    static ResourceLocation asId(CreateAdvancement advancement) {
-        String id = ((CreateAdvancementIdAccessor) (Object) advancement).azimuth$getId();
+    static ResourceLocation asId(final CreateAdvancement advancement) {
+        final String id = ((CreateAdvancementIdAccessor) advancement).azimuth$getId();
         return Create.asResource(id);
     }
 }

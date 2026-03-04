@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
 import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class GoggleBuilderHelper {
@@ -17,7 +18,7 @@ public class GoggleBuilderHelper {
         this.modId = modId;
     }
 
-    public void provideLang(final java.util.function.BiConsumer<String, String> consumer) {
+    public void provideLang(final BiConsumer<String, String> consumer) {
         GoggleLangRegistry.provideLang(this.modId, consumer);
     }
 

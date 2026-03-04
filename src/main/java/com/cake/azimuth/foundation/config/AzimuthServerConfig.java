@@ -1,11 +1,12 @@
 package com.cake.azimuth.foundation.config;
 
 import net.createmod.catnip.config.ConfigBase;
+import org.jetbrains.annotations.NotNull;
 
 public class AzimuthServerConfig extends ConfigBase {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "server";
     }
 }

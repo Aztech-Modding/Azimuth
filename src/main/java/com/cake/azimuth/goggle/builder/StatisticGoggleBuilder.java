@@ -81,7 +81,7 @@ public class StatisticGoggleBuilder extends LabelGoggleBuilder {
         }
 
         public double normalizedRatio() {
-            if (!(value instanceof Number first) || !(maxValue instanceof Number second)) {
+            if (!(value instanceof final Number first) || !(maxValue instanceof final Number second)) {
                 return 0D;
             }
             final double denominator = second.doubleValue();

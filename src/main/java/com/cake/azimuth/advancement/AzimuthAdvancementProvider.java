@@ -10,6 +10,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.PathProvider;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -108,7 +109,7 @@ public class AzimuthAdvancementProvider {
         }
 
         @Override
-        public CompletableFuture<?> run(final CachedOutput cache) {
+        public @NotNull CompletableFuture<?> run(final @NotNull CachedOutput cache) {
             return registries.thenCompose(provider -> {
                 final PathProvider pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "advancement");
                 final List<CompletableFuture<?>> futures = new ArrayList<>();
@@ -132,7 +133,7 @@ public class AzimuthAdvancementProvider {
         }
 
         @Override
-        public String getName() {
+        public @NotNull String getName() {
             return name;
         }
     }

@@ -1,6 +1,7 @@
 package com.cake.azimuth.foundation.config;
 
 import net.createmod.catnip.config.ConfigBase;
+import org.jetbrains.annotations.NotNull;
 
 public class AzimuthClientConfig extends ConfigBase {
 
@@ -9,7 +10,7 @@ public class AzimuthClientConfig extends ConfigBase {
             "Render goggle tooltip translation keys literally for live updates.");
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "client";
     }
 }

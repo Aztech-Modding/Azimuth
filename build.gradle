@@ -14,7 +14,10 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version = mod_version
+def isSnapshotVersioning = project.hasProperty('snapshot_versioning') && project.property('snapshot_versioning').toString().toBoolean()
+def resolvedVersion = isSnapshotVersioning ? "${mod_version}-SNAPSHOT" : mod_version
+
+version = resolvedVersion
 group = mod_group_id
 
 repositories {
@@ -156,7 +159,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,
-            mod_version            : mod_version,
+            mod_version            : project.version,
     ]
     inputs.properties replaceProperties
     expand replaceProperties

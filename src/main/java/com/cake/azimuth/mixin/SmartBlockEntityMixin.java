@@ -54,6 +54,7 @@ public abstract class SmartBlockEntityMixin extends CachedRenderBBBlockEntity im
         for (final Runnable cacheClearListener : azimuth$cacheClearListeners) {
             cacheClearListener.run();
         }
+        azimuth$cacheClearListeners.clear();
     }
 
     @SuppressWarnings("unchecked")
