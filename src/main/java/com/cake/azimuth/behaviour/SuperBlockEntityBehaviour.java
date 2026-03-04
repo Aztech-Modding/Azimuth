@@ -238,7 +238,7 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
      * <pre>
      * if (controllerOffset != null && getLevel() != null) {
      *     final BlockPos controllerPos = getPos().offset(controllerOffset);
-     *     this.<CogwheelChainComponentBehaviour>getComplementaryBehaviourOptional(controllerPos)
+     *     this.&lt;CogwheelChainComponentBehaviour&gt;getComplementaryBehaviourOptional(controllerPos)
      *        .ifPresent(controller -> controller.chainsToRefund = 0);
      * }
      * </pre>
