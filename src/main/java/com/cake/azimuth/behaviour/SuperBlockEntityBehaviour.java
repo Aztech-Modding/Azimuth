@@ -135,7 +135,7 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
      * <br/>
      * Example usage:
      * <pre>
-     * if (controllerOffset != null && getLevel() != null) {
+     * if (controllerOffset != null &amp;&amp; getLevel() != null) {
      *     final BlockPos controllerPos = getPos().offset(controllerOffset);
      *     CogwheelChainComponentBehaviour controller = this.getComplementaryBehaviour(controllerPos);
      *     if (controller != null) {
@@ -166,9 +166,9 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
      * <br/>
      * Example usage:
      * <pre>
-     * if (controllerOffset != null && getLevel() != null) {
+     * if (controllerOffset != null &amp;&amp; getLevel() != null) {
      *     final BlockPos controllerPos = getPos().offset(controllerOffset);
-     *     this.<CogwheelChainComponentBehaviour>getComplementaryBehaviourOptional(controllerPos)
+     *     this.&lt;CogwheelChainComponentBehaviour&gt;getComplementaryBehaviourOptional(controllerPos)
      *        .ifPresent(controller -> controller.chainsToRefund = 0);
      * }
      * </pre>
@@ -236,7 +236,7 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
      * <br/>
      * Example usage:
      * <pre>
-     * if (controllerOffset != null && getLevel() != null) {
+     * if (controllerOffset != null &amp;&amp; getLevel() != null) {
      *     final BlockPos controllerPos = getPos().offset(controllerOffset);
      *     this.&lt;CogwheelChainComponentBehaviour&gt;getComplementaryBehaviourOptional(controllerPos)
      *        .ifPresent(controller -> controller.chainsToRefund = 0);

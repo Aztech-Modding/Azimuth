@@ -40,11 +40,11 @@ import java.util.function.UnaryOperator;
  *         HELPER.register();
  *     }
  *
- *     public static void provideLang(BiConsumer<String, String> consumer) {
+ *     public static void provideLang(BiConsumer&lt;String, String&gt; consumer) {
  *         HELPER.provideLang(consumer);
  *     }
  *
- *     public static DataProvider dataProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+ *     public static DataProvider dataProvider(PackOutput output, CompletableFuture&lt;HolderLookup.Provider&gt; registries) {
  *         return HELPER.dataProvider(output, registries);
  *     }
  * }
