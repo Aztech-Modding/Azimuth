@@ -3,6 +3,7 @@
     "package":  "com.cake.azimuth.mixin",
     "compatibilityLevel":  "JAVA_21",
     "mixins":  [
+                   "AllBlocksMixin",
                    "CachedRenderBBBlockEntityMixin",
                    "CreateAdvancementIdMixin",
                    "ItemRequirementMixin",
