@@ -9,6 +9,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -273,9 +274,15 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
                 ));
     }
 
+    //endregion
+
     public void onBlockBroken(final BlockEvent.BreakEvent event) {
     }
 
-    //endregion
+    public void onItemUse(final PlayerInteractEvent.RightClickBlock event) {
+    }
+
+    public void onBlockPlaced(final BlockEvent.EntityPlaceEvent event) {
+    }
 
 }
