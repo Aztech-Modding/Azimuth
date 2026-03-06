@@ -4,6 +4,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.ModFileScanData;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,12 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -94,22 +90,24 @@ public class CreateBlockEdits {
         }
 
         final List<Method> registrators = Arrays.stream(owner.getDeclaredMethods())
-                .filter(method -> method.getName().equals(annotationData.memberName()))
+                .filter(method -> annotationData.memberName().startsWith(method.getName())) //Compare ignoring the ()V for params
                 .filter(method -> method.isAnnotationPresent(Registrator.class))
                 .toList();
         if (registrators.size() != 1) {
             throw new IllegalStateException("Expected exactly one annotated @CreateBlockEdits.Registrator method for " + describe(annotationData) + ", but found " + registrators.size() + ".");
         }
 
-        final Method registratorMethod = registrators.get(0);
+        return resolveRegistratorMethodFromRegistrators(registrators);
+    }
+
+    private static @NotNull Method resolveRegistratorMethodFromRegistrators(final List<Method> registrators) {
+        final Method registratorMethod = registrators.getFirst();
         if (!Modifier.isPublic(registratorMethod.getModifiers())
                 || !Modifier.isStatic(registratorMethod.getModifiers())
                 || registratorMethod.getParameterCount() != 0
-                || registratorMethod.getReturnType() != Void.TYPE
-                || !registratorMethod.getName().equals("register")) {
+                || registratorMethod.getReturnType() != Void.TYPE) {
             throw new IllegalStateException("Invalid @CreateBlockEdits.Registrator method " + registratorMethod.toGenericString() + "; expected public static void register() with no arguments.");
         }
-
         return registratorMethod;
     }
 
