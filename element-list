@@ -4,6 +4,7 @@ com.cake.azimuth.behaviour
 com.cake.azimuth.behaviour.extensions
 com.cake.azimuth.behaviour.render
 com.cake.azimuth.client.outlines
+com.cake.azimuth.client.outlines.instructions
 com.cake.azimuth.foundation.config
 com.cake.azimuth.goggle.api
 com.cake.azimuth.goggle.builder
@@ -12,6 +13,8 @@ com.cake.azimuth.goggle.component
 com.cake.azimuth.goggle.datagen
 com.cake.azimuth.goggle.style
 com.cake.azimuth.mixin
+com.cake.azimuth.mixin.ponder
+com.cake.azimuth.ponder.new_tooltip
 com.cake.azimuth.registration
 com.cake.azimuth.registration.goggle
 com.cake.azimuth.utility
