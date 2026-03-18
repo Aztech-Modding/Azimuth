@@ -1,12 +1,12 @@
 package com.cake.azimuth.ponder.new_tooltip;
 
+import com.cake.azimuth.Azimuth;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import com.cake.azimuth.Azimuth;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -41,7 +41,7 @@ public class NewPonderTooltipManager {
     private static final Object LOCK = new Object();
 
     private static Path filePath() {
-        return Minecraft.getInstance().gameDirectory.toPath().resolve("azimuth_ponders_watched.json");
+        return Minecraft.getInstance().gameDirectory.toPath().resolve("ponders_watched_azimuth.json");
     }
 
     public static RegisterBuilder forItems(final Item... items) {
@@ -68,6 +68,14 @@ public class NewPonderTooltipManager {
     public static boolean hasWatchedScene(final ResourceLocation id) {
         load();
         return WATCHED_PONDER_SCENES != null && WATCHED_PONDER_SCENES.contains(id);
+    }
+
+    public static void clearAllWatched() {
+        load();
+        if (WATCHED_PONDER_SCENES != null) {
+            WATCHED_PONDER_SCENES.clear();
+            save();
+        }
     }
 
     /**
