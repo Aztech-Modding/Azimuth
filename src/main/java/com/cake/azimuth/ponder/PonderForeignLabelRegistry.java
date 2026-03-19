@@ -1,5 +1,7 @@
 package com.cake.azimuth.ponder;
 
+import net.minecraft.network.chat.Component;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,6 +27,18 @@ public class PonderForeignLabelRegistry {
      */
     public static void register(final String modId, final String label) {
         REGISTERED_LABELS.put(modId, label.toUpperCase());
+    }
+
+    /**
+     * Register a mod as a ponder labeling mod with a translatable component.
+     * Use this for full localisation support — the component will be resolved
+     * at render time using the current locale.
+     *
+     * @param modId The mod's namespace (e.g., "bits_n_bobs")
+     * @param label The label component (e.g., Component.translatable("mymod.ponder.label"))
+     */
+    public static void register(final String modId, final Component label) {
+        REGISTERED_LABELS.put(modId, label.getString().toUpperCase());
     }
 
     /**

@@ -60,6 +60,27 @@ public class FontSheet {
         return text.length() * (this.charW + this.spacing) - this.spacing;
     }
 
+    /**
+     * Check if this font sheet has a glyph for the given character.
+     * Space characters are always considered renderable (they produce visual gaps).
+     */
+    public boolean hasGlyph(final char c) {
+        return c == ' ' || this.sprites.containsKey(c);
+    }
+
+    /**
+     * Check if this font sheet can render every character in the given text.
+     * Returns true if all characters have sprite mappings (or are spaces).
+     * Returns true for empty/null strings.
+     */
+    public boolean canRender(final String text) {
+        if (text == null || text.isEmpty()) return true;
+        for (int i = 0; i < text.length(); i++) {
+            if (!hasGlyph(text.charAt(i))) return false;
+        }
+        return true;
+    }
+
     public static class Builder {
 
         final ResourceLocation source;

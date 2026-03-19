@@ -95,6 +95,6 @@ public class PonderUILabelMixin {
         if (alpha < 4) return;
         final int color = (alpha << 24) | 0xffffff;
         final int x = Minecraft.getInstance().font.width(title) + 5;
-        Microfont.render(graphics, label.get(), x, 3, color);
+        Microfont.renderSmart(graphics, Minecraft.getInstance().font, label.get(), x, 3, color);
     }
 }
