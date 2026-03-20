@@ -143,6 +143,12 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/client/outlines/instructions/ExpandingOutlineInstruction.html" title="class in com.cake.azimuth.client.outlines.instructions">ExpandingOutlineInstruction</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/foundation/microfont/FontSheet.html" title="class in com.cake.azimuth.foundation.microfont">FontSheet</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Helper of spritesheet based monospace fonts</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/foundation/microfont/FontSheet.Builder.html" title="class in com.cake.azimuth.foundation.microfont">FontSheet.Builder</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/cake/azimuth/goggle/builder/GoggleBuilder.html" title="class in com.cake.azimuth.goggle.builder">GoggleBuilder</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/goggle/builder/GoggleBuilder.LineRef.html" title="class in com.cake.azimuth.goggle.builder">GoggleBuilder.LineRef</a></div>
@@ -177,13 +183,21 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/goggle/builder/LabelGoggleBuilder.html" title="class in com.cake.azimuth.goggle.builder">LabelGoggleBuilder</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/ponder/new_tooltip/NewPonderTooltipManager.html" title="class in com.cake.azimuth.ponder.new_tooltip">NewPonderTooltipManager</a></div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/foundation/microfont/Microfont.html" title="class in com.cake.azimuth.foundation.microfont">Microfont</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Teeny tiny barely even readable font used for type annotations on pins / data</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/ponder/new_tooltip/NewPonderTooltipManager.html" title="class in com.cake.azimuth.ponder.new_tooltip">NewPonderTooltipManager</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Manages tracking of which ponder scenes a player has watched, and provides
  a registration API for mods to associate items with their ponder scene IDs.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/cake/azimuth/ponder/new_tooltip/NewPonderTooltipManager.RegisterBuilder.html" title="class in com.cake.azimuth.ponder.new_tooltip">NewPonderTooltipManager.RegisterBuilder</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/cake/azimuth/ponder/new_tooltip/NewPonderTooltipManager.RegisterBuilder.html" title="class in com.cake.azimuth.ponder.new_tooltip">NewPonderTooltipManager.RegisterBuilder</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/ponder/PonderForeignLabelRegistry.html" title="class in com.cake.azimuth.ponder">PonderForeignLabelRegistry</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Registry for mods that inject ponder scenes into Create.</div>
+</div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/ponder/PonderSceneRegistryMixin.html" title="class in com.cake.azimuth.mixin.ponder">PonderSceneRegistryMixin</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Mixin that marks the first ponder scene as watched when a scene registry entry
@@ -198,48 +212,52 @@ loadScripts(document, 'script');</script>
 <div class="block">Mixin that appends a gold "✦ NEW" badge to the ponder progress bar tooltip
  when an item has unwatched ponder scenes.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/ponder/PonderUIMixin.html" title="class in com.cake.azimuth.mixin.ponder">PonderUIMixin</a></div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/ponder/PonderUILabelMixin.html" title="class in com.cake.azimuth.mixin.ponder">PonderUILabelMixin</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Renders a microfont mod-attribution label just below the ponder scene title.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/ponder/PonderUIMixin.html" title="class in com.cake.azimuth.mixin.ponder">PonderUIMixin</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Mixin that marks ponder scenes as watched when the player scrolls through
  them in the Ponder UI.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/cake/azimuth/behaviour/extensions/RenderedBehaviourExtension.html" title="interface in com.cake.azimuth.behaviour.extensions">RenderedBehaviourExtension</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/cake/azimuth/behaviour/extensions/RenderedBehaviourExtension.html" title="interface in com.cake.azimuth.behaviour.extensions">RenderedBehaviourExtension</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Used to designate a block entity behaviour as one that includes additional block entity rendering.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/cake/azimuth/behaviour/extensions/RenderedBehaviourExtension.BehaviourRenderSupplier.html" title="interface in com.cake.azimuth.behaviour.extensions">RenderedBehaviourExtension.BehaviourRenderSupplier</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/behaviour/extensions/RenderedBehaviourExtension.BehaviourVisual.html" title="class in com.cake.azimuth.behaviour.extensions">RenderedBehaviourExtension.BehaviourVisual</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/cake/azimuth/behaviour/extensions/RenderedBehaviourExtension.BehaviourVisualFactory.html" title="interface in com.cake.azimuth.behaviour.extensions">RenderedBehaviourExtension.BehaviourVisualFactory</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/RotationPropagatorMixin.html" title="class in com.cake.azimuth.mixin">RotationPropagatorMixin</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/SafeBlockEntityRendererMixin.html" title="class in com.cake.azimuth.mixin">SafeBlockEntityRendererMixin&lt;T&gt;</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/SmartBlockEntityMixin.html" title="class in com.cake.azimuth.mixin">SmartBlockEntityMixin</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/goggle/builder/StatisticGoggleBuilder.html" title="class in com.cake.azimuth.goggle.builder">StatisticGoggleBuilder</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/cake/azimuth/goggle/style/StatisticStyle.html" title="interface in com.cake.azimuth.goggle.style">StatisticStyle&lt;T&gt;</a></div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/cake/azimuth/behaviour/extensions/RenderedBehaviourExtension.BehaviourRenderSupplier.html" title="interface in com.cake.azimuth.behaviour.extensions">RenderedBehaviourExtension.BehaviourRenderSupplier</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab1">&nbsp;</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/StructureTransformMixin.html" title="class in com.cake.azimuth.mixin">StructureTransformMixin</a></div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/behaviour/extensions/RenderedBehaviourExtension.BehaviourVisual.html" title="class in com.cake.azimuth.behaviour.extensions">RenderedBehaviourExtension.BehaviourVisual</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/behaviour/SuperBlockEntityBehaviour.html" title="class in com.cake.azimuth.behaviour">SuperBlockEntityBehaviour</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/cake/azimuth/behaviour/extensions/RenderedBehaviourExtension.BehaviourVisualFactory.html" title="interface in com.cake.azimuth.behaviour.extensions">RenderedBehaviourExtension.BehaviourVisualFactory</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">&nbsp;</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/RotationPropagatorMixin.html" title="class in com.cake.azimuth.mixin">RotationPropagatorMixin</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/SafeBlockEntityRendererMixin.html" title="class in com.cake.azimuth.mixin">SafeBlockEntityRendererMixin&lt;T&gt;</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/SmartBlockEntityMixin.html" title="class in com.cake.azimuth.mixin">SmartBlockEntityMixin</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/goggle/builder/StatisticGoggleBuilder.html" title="class in com.cake.azimuth.goggle.builder">StatisticGoggleBuilder</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/cake/azimuth/goggle/style/StatisticStyle.html" title="interface in com.cake.azimuth.goggle.style">StatisticStyle&lt;T&gt;</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">&nbsp;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/StructureTransformMixin.html" title="class in com.cake.azimuth.mixin">StructureTransformMixin</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/behaviour/SuperBlockEntityBehaviour.html" title="class in com.cake.azimuth.behaviour">SuperBlockEntityBehaviour</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Extended version of <code>BlockEntityBehaviour</code> designed for invasive additions of extra functionality for <code>SmartBlockEntity</code>,
  where you want to compose (or apply) almost full block entity functionality.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/VisualizationHelperMixin.html" title="class in com.cake.azimuth.mixin">VisualizationHelperMixin</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/VisualizerRegistryMixin.html" title="class in com.cake.azimuth.mixin">VisualizerRegistryMixin</a></div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/VisualizationHelperMixin.html" title="class in com.cake.azimuth.mixin">VisualizationHelperMixin</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/registration/VisualWrapperInterest.html" title="class in com.cake.azimuth.registration">VisualWrapperInterest</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/mixin/VisualizerRegistryMixin.html" title="class in com.cake.azimuth.mixin">VisualizerRegistryMixin</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/registration/VisualWrapperInterest.html" title="class in com.cake.azimuth.registration">VisualWrapperInterest</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Used to limit the impact of wrapping visuals to only the block entities that need it.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/behaviour/render/WrappingVisualizer.html" title="class in com.cake.azimuth.behaviour.render">WrappingVisualizer&lt;T&gt;</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/cake/azimuth/behaviour/render/WrappingVisualizer.html" title="class in com.cake.azimuth.behaviour.render">WrappingVisualizer&lt;T&gt;</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">A wrapper around a <code>BlockEntityVisualizer</code> that adds support for rendering <a href="com/cake/azimuth/behaviour/extensions/RenderedBehaviourExtension.html" title="interface in com.cake.azimuth.behaviour.extensions"><code>RenderedBehaviourExtension</code></a>s.</div>
 </div>
 </div>
