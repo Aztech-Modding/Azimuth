@@ -5,6 +5,8 @@ com.cake.azimuth.behaviour.extensions
 com.cake.azimuth.behaviour.render
 com.cake.azimuth.client.outlines
 com.cake.azimuth.client.outlines.instructions
+com.cake.azimuth.content
+com.cake.azimuth.content.ponder_coodinates
 com.cake.azimuth.foundation.config
 com.cake.azimuth.foundation.microfont
 com.cake.azimuth.goggle.api
