@@ -5,17 +5,20 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import static com.cake.azimuth.Azimuth.REGISTRATE_FOR_DATA;
+import static com.cake.azimuth.Azimuth.REGISTRATE;
 
 @EventBusSubscriber(modid = Azimuth.MODID)
 public class AzimuthData {
 
     @SubscribeEvent
     public static void gatherData(final GatherDataEvent event) {
-        event.getGenerator().addProvider(event.includeClient(), new GoggleLangDataProvider(event.getGenerator().getPackOutput()));
+        event.getGenerator().addProvider(
+                event.includeClient(),
+                new GoggleLangDataProvider(event.getGenerator().getPackOutput())
+        );
     }
 
     public static void addRegistrateData() {
-        REGISTRATE_FOR_DATA.addRawLang("azimuth.tooltip.new_ponder", "(New!)");
+        REGISTRATE.addRawLang("azimuth.tooltip.new_ponder", "(New!)");
     }
 }

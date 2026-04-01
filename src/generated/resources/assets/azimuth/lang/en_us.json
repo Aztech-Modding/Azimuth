@@ -1,3 +1,4 @@
 {
-  "azimuth.tooltip.new_ponder": "(New!)"
+  "azimuth.tooltip.new_ponder": "(New!)",
+  "block.azimuth.ponder_coordinate": "Ponder Coordinate"
 }
