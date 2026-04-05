@@ -15,6 +15,7 @@ com.cake.azimuth.goggle.command
 com.cake.azimuth.goggle.component
 com.cake.azimuth.goggle.datagen
 com.cake.azimuth.goggle.style
+com.cake.azimuth.lang
 com.cake.azimuth.mixin
 com.cake.azimuth.mixin.ponder
 com.cake.azimuth.ponder
