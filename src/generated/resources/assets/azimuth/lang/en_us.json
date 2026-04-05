@@ -1,5 +1,4 @@
 {
-  "azimuth.tooltip.unit.cug_gram": "cg",
-  "azimuth.tooltip.unit.cug_gram_m2": "cg/m²",
-  "azimuth.tooltip.unit.cug_gram_m3": "cg/m³"
+  "azimuth.tooltip.new_ponder": "(New!)",
+  "block.azimuth.ponder_coordinate": "Ponder Coordinate"
 }

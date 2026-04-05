@@ -8,10 +8,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 
-public final class AzimuthClientCommands {
-
-    private AzimuthClientCommands() {
-    }
+public class AzimuthClientCommands {
 
     public static void register(final CommandDispatcher<CommandSourceStack> dispatcher) {
         final LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("azimuth")

@@ -2,11 +2,13 @@ package com.cake.azimuth.registration;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
+import com.tterrag.registrate.util.nullness.NonNullBiFunction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.ModFileScanData;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,13 +16,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.BiFunction;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -30,7 +26,7 @@ import java.util.function.Consumer;
 public class CreateBlockEdits {
 
     private static final Map<String, Consumer<BlockBuilder<?, CreateRegistrate>>> EDITS_BY_ID = new LinkedHashMap<>();
-    private static final Map<String, BiFunction<Block, Item.Properties, ? extends BlockItem>> ITEM_FACTORIES_BY_ID = new LinkedHashMap<>();
+    private static final Map<String, NonNullBiFunction<? extends Block, Item.Properties, ? extends BlockItem>> ITEM_OVERRIDES = new LinkedHashMap<>();
     private static RegistrationWindow registrationWindow = RegistrationWindow.NOT_STARTED;
 
     public static synchronized void bootstrapRegistrators() {
@@ -64,31 +60,30 @@ public class CreateBlockEdits {
         });
     }
 
+    public static synchronized <T extends Block> void forBlockItem(final String id, final NonNullBiFunction<T, Item.Properties, ? extends BlockItem> itemFactory) {
+        if (registrationWindow != RegistrationWindow.OPEN) {
+            throw new IllegalStateException("CreateBlockEdits.forBlockItem(...) can only be called from a @CreateBlockEdits.Registrator method while Create's AllBlocks are bootstrapping; current registration window is " + registrationWindow + ".");
+        }
+
+        Objects.requireNonNull(id, "id");
+        Objects.requireNonNull(itemFactory, "itemFactory");
+        if (ITEM_OVERRIDES.containsKey(id)) {
+            throw new IllegalStateException("An item override for block '" + id + "' has already been registered.");
+        }
+        ITEM_OVERRIDES.put(id, itemFactory);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends Block> NonNullBiFunction<T, Item.Properties, ? extends BlockItem> getItemOverride(final String id) {
+        return (NonNullBiFunction<T, Item.Properties, ? extends BlockItem>) ITEM_OVERRIDES.get(id);
+    }
+
     public static Consumer<BlockBuilder<?, CreateRegistrate>> getEditForId(final String id) {
         if (registrationWindow != RegistrationWindow.CLOSED) {
             throw new IllegalStateException("CreateBlockEdits.getEditForId(...) was called before registrators were fully discovered; current registration window is " + registrationWindow + ".");
         }
 
         return EDITS_BY_ID.get(id);
-    }
-
-    public static synchronized void forBlockItem(final String id,
-                                                  final BiFunction<Block, Item.Properties, ? extends BlockItem> factory) {
-        if (registrationWindow != RegistrationWindow.OPEN) {
-            throw new IllegalStateException("CreateBlockEdits.forBlockItem(...) can only be called from a @CreateBlockEdits.Registrator method while Create's AllBlocks are bootstrapping; current registration window is " + registrationWindow + ".");
-        }
-
-        Objects.requireNonNull(id, "id");
-        Objects.requireNonNull(factory, "factory");
-        ITEM_FACTORIES_BY_ID.put(id, factory);
-    }
-
-    public static BiFunction<Block, Item.Properties, ? extends BlockItem> getItemFactoryForId(final String id) {
-        if (registrationWindow != RegistrationWindow.CLOSED) {
-            throw new IllegalStateException("CreateBlockEdits.getItemFactoryForId(...) was called before registrators were fully discovered; current registration window is " + registrationWindow + ".");
-        }
-
-        return ITEM_FACTORIES_BY_ID.get(id);
     }
 
     private static List<ModFileScanData.AnnotationData> discoverRegistrators(final ModList modList) {
@@ -122,22 +117,24 @@ public class CreateBlockEdits {
                 : annotationData.memberName();
 
         final List<Method> registrators = Arrays.stream(owner.getDeclaredMethods())
-                .filter(method -> method.getName().equals(methodSimpleName))
+                .filter(method -> annotationData.memberName().startsWith(method.getName())) //Compare ignoring the ()V for params
                 .filter(method -> method.isAnnotationPresent(Registrator.class))
                 .toList();
         if (registrators.size() != 1) {
             throw new IllegalStateException("Expected exactly one annotated @CreateBlockEdits.Registrator method for " + describe(annotationData) + ", but found " + registrators.size() + ".");
         }
 
-        final Method registratorMethod = registrators.get(0);
+        return resolveRegistratorMethodFromRegistrators(registrators);
+    }
+
+    private static @NotNull Method resolveRegistratorMethodFromRegistrators(final List<Method> registrators) {
+        final Method registratorMethod = registrators.getFirst();
         if (!Modifier.isPublic(registratorMethod.getModifiers())
                 || !Modifier.isStatic(registratorMethod.getModifiers())
                 || registratorMethod.getParameterCount() != 0
-                || registratorMethod.getReturnType() != Void.TYPE
-                || !registratorMethod.getName().equals("register")) {
+                || registratorMethod.getReturnType() != Void.TYPE) {
             throw new IllegalStateException("Invalid @CreateBlockEdits.Registrator method " + registratorMethod.toGenericString() + "; expected public static void register() with no arguments.");
         }
-
         return registratorMethod;
     }
 

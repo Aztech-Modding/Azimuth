@@ -1,0 +1,6 @@
+// 1.21.1	2026-04-01T13:40:42.0429687	Registrate Provider for azimuth [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (enchantments), Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+c8a10bded583084751c65418b2739ba86bc2f28e assets/azimuth/blockstates/ponder_coordinate.json
+ee121b6f11e61654162cc490de8893510d77baa3 assets/azimuth/lang/en_ud.json
+9a60b10123d871263057ffe577ac68a0351284a0 assets/azimuth/lang/en_us.json
+66b116f4dab5a527c987e3e41491457ad300c1da assets/azimuth/models/item/ponder_coordinate.json
+a88f6a40d8b0b37817d4c7677302a393a1cfdc5a data/azimuth/loot_table/blocks/ponder_coordinate.json

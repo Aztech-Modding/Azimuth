@@ -1,5 +1,6 @@
 package com.cake.azimuth.behaviour;
 
+import com.cake.azimuth.registration.BehaviourApplicators;
 import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
@@ -70,7 +71,9 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
      * @param <T>   the type of the behaviour
      * @return an optional containing the behaviour if it exists and is of the correct type, or an empty optional if it doesn't exist, isn't loaded, or isn't a SmartBlockEntity.
      */
-    public static <T extends BlockEntityBehaviour> Optional<T> getOptional(final Level level, @NotNull final BlockPos pos, final BehaviourType<T> type) {
+    public static <T extends BlockEntityBehaviour> Optional<T> getOptional(final Level level,
+                                                                           @NotNull final BlockPos pos,
+                                                                           final BehaviourType<T> type) {
         return Optional.ofNullable(BlockEntityBehaviour.get(level, pos, type));
     }
 
@@ -84,15 +87,34 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
      * @param <T>   the type of the behaviour
      * @return an optional containing the behaviour if it exists and is of the correct type, or an empty optional if it doesn't exist, isn't loaded, or isn't a SmartBlockEntity.
      */
-    public static <T extends BlockEntityBehaviour> T getOrThrow(final Level level, @NotNull final BlockPos pos, final BehaviourType<T> type) {
+    public static <T extends BlockEntityBehaviour> T getOrThrow(final Level level,
+                                                                @NotNull final BlockPos pos,
+                                                                final BehaviourType<T> type) {
         return Optional.ofNullable(BlockEntityBehaviour.get(level, pos, type))
-                .orElseThrow(() -> new IllegalStateException(
-                        "Expected to find a behaviour (type " +
-                                type +
-                                ") at position " +
-                                pos +
-                                ", but it was not present or was not of the correct type."
-                ));
+                .orElseThrow(() -> {
+                    //Try get some debug info in the event that this failed
+                    final BlockEntity blockEntity = level.getBlockEntity(pos);
+                    boolean hasRegisteredApplicator = false;
+                    boolean blockEntityPresent = false;
+                    if (blockEntity instanceof final SmartBlockEntity sbe) {
+                        blockEntityPresent = true;
+                        hasRegisteredApplicator = BehaviourApplicators.getBehavioursFor(sbe)
+                                .stream()
+                                .anyMatch(e -> e.getType().equals(type));
+                    }
+
+                    return new IllegalStateException(
+                            "Expected to find a behaviour (type " +
+                                    type +
+                                    ") at position " +
+                                    pos +
+                                    ", but it was not present or was not of the correct type." +
+                                    (hasRegisteredApplicator ? "The block entity was registered and had a registered applicator for this type," :
+                                            blockEntityPresent ? "The block entity was registered but did not have a registered applicator for this type," :
+                                                    "No block entity was present at this position,") + " and the blockstate was " + level.getBlockState(
+                                    pos)
+                    );
+                });
     }
 
     /**
@@ -103,7 +125,8 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
      * @param <T>  the type of the behaviour
      * @return an optional containing the behaviour if it exists and is of the correct type, or an empty optional if it doesn't exist, isn't loaded, or isn't a SmartBlockEntity.
      */
-    public static <T extends BlockEntityBehaviour> Optional<T> getOptional(final BlockEntity be, final BehaviourType<T> type) {
+    public static <T extends BlockEntityBehaviour> Optional<T> getOptional(final BlockEntity be,
+                                                                           final BehaviourType<T> type) {
         return Optional.ofNullable(BlockEntityBehaviour.get(be, type));
     }
 
@@ -179,7 +202,7 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
      * @return an optional containing the complementary behaviour if it exists and is of the same type, or an empty optional if it doesn't exist, isn't loaded, or isn't of the same type.
      */
     public <T extends SuperBlockEntityBehaviour> Optional<T> getSameBehaviourOptional(final BlockPos otherPos) {
-        return Optional.ofNullable(getSameBehaviour(otherPos));
+        return Optional.ofNullable(this.getSameBehaviour(otherPos));
     }
 
     /**
@@ -249,7 +272,7 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
      * @return an optional containing the complementary behaviour if it exists and is of the same type, or an empty optional if it doesn't exist, isn't loaded, or isn't of the same type.
      */
     public <T extends SuperBlockEntityBehaviour> Optional<T> getSameBehaviourOptional(final BlockEntity otherBlockEntity) {
-        return Optional.ofNullable(getSameBehaviour(otherBlockEntity));
+        return Optional.ofNullable(this.getSameBehaviour(otherBlockEntity));
     }
 
     /**
@@ -274,6 +297,8 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
                 ));
     }
 
+    //endregion
+
     public void onBlockBroken(final BlockEvent.BreakEvent event) {
     }
 
@@ -282,7 +307,5 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
 
     public void onBlockPlaced(final BlockEvent.EntityPlaceEvent event) {
     }
-
-    //endregion
 
 }

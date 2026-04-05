@@ -1,6 +1,7 @@
 package com.cake.azimuth;
 
 import com.cake.azimuth.foundation.config.AzimuthConfigs;
+import com.cake.azimuth.foundation.config.AzimuthConfigScreen;
 import com.cake.azimuth.goggle.command.AzimuthClientCommands;
 import net.createmod.catnip.config.ui.BaseConfigScreen;
 import net.neoforged.api.distmarker.Dist;
@@ -49,7 +50,7 @@ public class AzimuthClient {
                     .getModContainerById(Azimuth.MODID)
                     .orElseThrow(() -> new IllegalStateException("Azimuth mod container missing on LoadComplete"));
             final Supplier<IConfigScreenFactory> configScreen = () ->
-                    (mc, previousScreen) -> new BaseConfigScreen(previousScreen, Azimuth.MODID);
+                    (mc, previousScreen) -> new AzimuthConfigScreen(previousScreen, Azimuth.MODID);
             container.registerExtensionPoint(IConfigScreenFactory.class, configScreen);
         }
     }

@@ -70,7 +70,7 @@ public class GoggleLangRegistry {
 
             final GoggleBuilder builder = GoggleBuilder.datagen(buildable.getModId());
             if (blockEntity instanceof final IDatagenGoggleInitializer initializer) {
-                initializer.onDatagenInit(builder);
+                initializer.onGoggleDatagenInit(builder);
             }
 
             try {
@@ -100,8 +100,17 @@ public class GoggleLangRegistry {
 
     private static final Map<String, Long> CONFLICTS_SHOWN = new ConcurrentHashMap<>();
 
-    private static void logConflict(final String modId, final String fullKey, final String defaultEnglish, final String existing) {
-        final String conflictLog = String.format("Conflicting goggle lang key %s for mod %s : %s vs %s", fullKey, modId, existing, defaultEnglish);
+    private static void logConflict(final String modId,
+                                    final String fullKey,
+                                    final String defaultEnglish,
+                                    final String existing) {
+        final String conflictLog = String.format(
+                "Conflicting goggle lang key %s for mod %s : %s vs %s",
+                fullKey,
+                modId,
+                existing,
+                defaultEnglish
+        );
         if (CONFLICTS_SHOWN.containsKey(conflictLog)) {
             final Long lastShownTime = CONFLICTS_SHOWN.get(conflictLog);
             if (lastShownTime != null && System.currentTimeMillis() - lastShownTime < 30000L) {
