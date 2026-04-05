@@ -2,6 +2,9 @@ package com.cake.azimuth.registration;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforgespi.language.ModFileScanData;
 
@@ -17,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 /**
@@ -26,6 +30,7 @@ import java.util.function.Consumer;
 public class CreateBlockEdits {
 
     private static final Map<String, Consumer<BlockBuilder<?, CreateRegistrate>>> EDITS_BY_ID = new LinkedHashMap<>();
+    private static final Map<String, BiFunction<Block, Item.Properties, ? extends BlockItem>> ITEM_FACTORIES_BY_ID = new LinkedHashMap<>();
     private static RegistrationWindow registrationWindow = RegistrationWindow.NOT_STARTED;
 
     public static synchronized void bootstrapRegistrators() {
@@ -67,6 +72,25 @@ public class CreateBlockEdits {
         return EDITS_BY_ID.get(id);
     }
 
+    public static synchronized void forBlockItem(final String id,
+                                                  final BiFunction<Block, Item.Properties, ? extends BlockItem> factory) {
+        if (registrationWindow != RegistrationWindow.OPEN) {
+            throw new IllegalStateException("CreateBlockEdits.forBlockItem(...) can only be called from a @CreateBlockEdits.Registrator method while Create's AllBlocks are bootstrapping; current registration window is " + registrationWindow + ".");
+        }
+
+        Objects.requireNonNull(id, "id");
+        Objects.requireNonNull(factory, "factory");
+        ITEM_FACTORIES_BY_ID.put(id, factory);
+    }
+
+    public static BiFunction<Block, Item.Properties, ? extends BlockItem> getItemFactoryForId(final String id) {
+        if (registrationWindow != RegistrationWindow.CLOSED) {
+            throw new IllegalStateException("CreateBlockEdits.getItemFactoryForId(...) was called before registrators were fully discovered; current registration window is " + registrationWindow + ".");
+        }
+
+        return ITEM_FACTORIES_BY_ID.get(id);
+    }
+
     private static List<ModFileScanData.AnnotationData> discoverRegistrators(final ModList modList) {
         return modList.getAllScanData().stream()
                 .flatMap(scanData -> scanData.getAnnotatedBy(Registrator.class, ElementType.METHOD))
@@ -93,8 +117,12 @@ public class CreateBlockEdits {
             throw new IllegalStateException("Failed to load @CreateBlockEdits.Registrator owner " + describe(annotationData) + ".", e);
         }
 
+        final String methodSimpleName = annotationData.memberName().contains("(")
+                ? annotationData.memberName().substring(0, annotationData.memberName().indexOf('('))
+                : annotationData.memberName();
+
         final List<Method> registrators = Arrays.stream(owner.getDeclaredMethods())
-                .filter(method -> method.getName().equals(annotationData.memberName()))
+                .filter(method -> method.getName().equals(methodSimpleName))
                 .filter(method -> method.isAnnotationPresent(Registrator.class))
                 .toList();
         if (registrators.size() != 1) {

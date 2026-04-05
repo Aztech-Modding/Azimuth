@@ -42,6 +42,10 @@ public class GoggleLangRegistry {
         register(modId, modId + ".tooltip." + keySuffix, defaultEnglish);
     }
 
+    public static void registerEntry(final String modId, final String fullKey, final String defaultEnglish) {
+        register(modId, fullKey, defaultEnglish);
+    }
+
     private static void register(final String modId, final String fullKey, final String defaultEnglish) {
         final Map<String, String> keys = ENTRIES_BY_MOD.computeIfAbsent(modId, unused -> new ConcurrentHashMap<>());
         final String existing = keys.putIfAbsent(fullKey, defaultEnglish);
