@@ -89,8 +89,6 @@ loadScripts(document, 'script');</script>
 
  <p>The key is resolved in order of precedence:</p>
  <ol>
-   <li>If <a href="#source()"><code>source()</code></a> is set, the source class must carry
-       <a href="LangKeyFormat.html" title="annotation interface in com.cake.azimuth.lang"><code>LangKeyFormat</code></a> and the key is formatted through it.</li>
    <li>If <a href="#format()"><code>format()</code></a> is non-empty, the key is formatted through it.</li>
    <li>Otherwise the key is used as-is.</li>
  </ol></div>
@@ -127,9 +125,6 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#format()" class="member-name-link">format</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a><wbr>&lt;?&gt;</code></div>
-<div class="col-second odd-row-color"><code><a href="#source()" class="member-name-link">source</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -152,16 +147,6 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="value()">
 <h3>value</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">value</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="source()">
-<h3>source</h3>
-<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;?&gt;</span>&nbsp;<span class="element-name">source</span></div>
-<dl class="notes">
-<dt>Default:</dt>
-<dd><code>void.class</code></dd>
-</dl>
 </section>
 </li>
 <li>
