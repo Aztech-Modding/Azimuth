@@ -9,8 +9,6 @@ import java.lang.annotation.Target;
  *
  * <p>The key is resolved in order of precedence:</p>
  * <ol>
- *   <li>If {@link #source()} is set, the source class must carry
- *       {@link LangKeyFormat} and the key is formatted through it.</li>
  *   <li>If {@link #format()} is non-empty, the key is formatted through it.</li>
  *   <li>Otherwise the key is used as-is.</li>
  * </ol>
@@ -20,6 +18,5 @@ import java.lang.annotation.Target;
 public @interface LangDefault {
     String key();
     String value();
-    Class<?> source() default void.class;
     String format() default "";
 }

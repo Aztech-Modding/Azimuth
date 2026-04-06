@@ -99,16 +99,6 @@ public class LangDefaultCollector {
     }
 
     private static String resolveKey(final LangDefault entry) {
-        if (entry.source() != void.class) {
-            final LangKeyFormat format = entry.source().getAnnotation(LangKeyFormat.class);
-            if (format == null) {
-                Azimuth.LOGGER.warn("@LangDefault source class {} does not have @LangKeyFormat.",
-                        entry.source().getName());
-                return null;
-            }
-            return String.format(format.value(), entry.key());
-        }
-
         if (!entry.format().isEmpty()) {
             return String.format(entry.format(), entry.key());
         }
