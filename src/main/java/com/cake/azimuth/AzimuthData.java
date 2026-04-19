@@ -1,6 +1,6 @@
 package com.cake.azimuth;
 
-import com.cake.azimuth.goggle.datagen.GoggleLangDataProvider;
+import com.cake.azimuth.foundation.lang.AzimuthGeneratedLangProvider;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -14,7 +14,7 @@ public class AzimuthData {
     public static void gatherData(final GatherDataEvent event) {
         event.getGenerator().addProvider(
                 event.includeClient(),
-                new GoggleLangDataProvider(event.getGenerator().getPackOutput())
+                new AzimuthGeneratedLangProvider(event.getGenerator().getPackOutput())
         );
     }
 

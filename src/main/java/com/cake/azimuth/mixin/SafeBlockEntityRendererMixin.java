@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
+import dev.engine_room.flywheel.api.visualization.VisualizerRegistry;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,16 +19,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class SafeBlockEntityRendererMixin<T extends BlockEntity> {
 
     @Inject(method = "render", at = @At("TAIL"))
-    protected void azimuth$renderBehaviours(final T blockEntity, final float partialTicks, final PoseStack ms, final MultiBufferSource bufferSource, final int light, final int overlay, final CallbackInfo ci) {
+    protected void azimuth$renderBehaviours(final T blockEntity,
+                                            final float partialTicks,
+                                            final PoseStack ms,
+                                            final MultiBufferSource bufferSource,
+                                            final int light,
+                                            final int overlay,
+                                            final CallbackInfo ci) {
         if (blockEntity instanceof final SmartBlockEntity smartBe && smartBe instanceof final AzimuthSmartBlockEntityExtension azimuthBE) {
-            final boolean visualizationActive = smartBe.getLevel() != null && VisualizationManager.supportsVisualization(smartBe.getLevel());
+            final boolean visualizationActive = smartBe.getLevel() != null &&
+                    VisualizationManager.supportsVisualization(smartBe.getLevel()) &&
+                    VisualizerRegistry.getVisualizer(smartBe.getType()) != null;
             for (final RenderedBehaviourExtension behaviour : azimuthBE.azimuth$getRenderedExtensionCache()) {
                 if (visualizationActive && !behaviour.rendersWhenVisualizationAvailable()) {
                     continue;
                 }
                 behaviour.getRenderer().get().get().castRenderSafe(
                         (SuperBlockEntityBehaviour) behaviour,
-                        (SmartBlockEntity) blockEntity,
+                        smartBe,
                         partialTicks,
                         ms,
                         bufferSource,

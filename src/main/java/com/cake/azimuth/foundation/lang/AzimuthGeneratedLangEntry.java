@@ -1,10 +1,11 @@
-package com.cake.azimuth.goggle.component;
+package com.cake.azimuth.foundation.lang;
 
 import com.cake.azimuth.Azimuth;
 import com.cake.azimuth.foundation.config.AzimuthConfigs;
 import com.cake.azimuth.goggle.api.IBuildGoggleInformation;
 import com.cake.azimuth.goggle.api.IDatagenGoggleInitializer;
 import com.cake.azimuth.goggle.builder.GoggleBuilder;
+import com.cake.azimuth.goggle.component.GoggleComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
@@ -19,10 +20,9 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 
-public class GoggleLangRegistry {
+public class AzimuthGeneratedLangEntry {
 
     private static final Map<String, Map<String, String>> ENTRIES_BY_MOD = new ConcurrentHashMap<>();
-
 
     public static void provideLang(final String modId, final BiConsumer<String, String> consumer) {
         final Map<String, String> entries = ENTRIES_BY_MOD.get(modId);

@@ -1,7 +1,7 @@
 package com.cake.azimuth.lang;
 
 import com.cake.azimuth.Azimuth;
-import com.cake.azimuth.goggle.component.GoggleLangRegistry;
+import com.cake.azimuth.foundation.lang.AzimuthGeneratedLangEntry;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforgespi.language.ModFileScanData;
@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Scans {@link IncludeLangDefaults} annotations via NeoForge mod scan data
- * and registers discovered entries into {@link GoggleLangRegistry} for datagen.
+ * and registers discovered entries into {@link AzimuthGeneratedLangEntry} for datagen.
  */
 public class LangDefaultCollector {
 
@@ -33,7 +33,7 @@ public class LangDefaultCollector {
         }
 
         discovered.sort(Comparator.comparing((ModFileScanData.AnnotationData d) -> d.clazz().getClassName())
-                .thenComparing(ModFileScanData.AnnotationData::memberName));
+                                .thenComparing(ModFileScanData.AnnotationData::memberName));
 
         discovered.forEach(LangDefaultCollector::processAnnotation);
     }
@@ -48,20 +48,24 @@ public class LangDefaultCollector {
         for (final IncludeLangDefaults annotation : annotations) {
             final String modId = resolveModId(annotation, ownerClass);
             if (modId == null) {
-                Azimuth.LOGGER.warn("Could not determine mod ID for @IncludeLangDefaults on {}#{} — "
+                Azimuth.LOGGER.warn(
+                        "Could not determine mod ID for @IncludeLangDefaults on {}#{} — "
                                 + "set modid explicitly or ensure a @Mod class shares the package tree.",
-                        data.clazz().getClassName(), data.memberName());
+                        data.clazz().getClassName(), data.memberName()
+                );
                 continue;
             }
 
             for (final LangDefault entry : annotation.value()) {
                 final String resolvedKey = resolveKey(entry);
                 if (resolvedKey == null) {
-                    Azimuth.LOGGER.warn("Failed to resolve lang key '{}' in @IncludeLangDefaults on {}#{}.",
-                            entry.key(), data.clazz().getClassName(), data.memberName());
+                    Azimuth.LOGGER.warn(
+                            "Failed to resolve lang key '{}' in @IncludeLangDefaults on {}#{}.",
+                            entry.key(), data.clazz().getClassName(), data.memberName()
+                    );
                     continue;
                 }
-                GoggleLangRegistry.registerEntry(modId, resolvedKey, entry.value());
+                AzimuthGeneratedLangEntry.registerEntry(modId, resolvedKey, entry.value());
             }
         }
     }
@@ -145,8 +149,10 @@ public class LangDefaultCollector {
     private static Class<?> loadClass(final String className) {
         try {
             final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-            return Class.forName(className, false,
-                    contextClassLoader != null ? contextClassLoader : LangDefaultCollector.class.getClassLoader());
+            return Class.forName(
+                    className, false,
+                    contextClassLoader != null ? contextClassLoader : LangDefaultCollector.class.getClassLoader()
+            );
         } catch (final ClassNotFoundException e) {
             Azimuth.LOGGER.warn("Failed to load class {} for @IncludeLangDefaults processing.", className, e);
             return null;

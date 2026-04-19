@@ -1,6 +1,5 @@
-package com.cake.azimuth.goggle.datagen;
+package com.cake.azimuth.foundation.lang;
 
-import com.cake.azimuth.goggle.component.GoggleLangRegistry;
 import com.google.gson.JsonObject;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -16,24 +15,27 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class GoggleLangDataProvider implements DataProvider {
+public class AzimuthGeneratedLangProvider implements DataProvider {
 
     private final PackOutput output;
 
-    public GoggleLangDataProvider(final PackOutput output) {
+    public AzimuthGeneratedLangProvider(final PackOutput output) {
         this.output = output;
     }
 
     @Override
     public @NotNull CompletableFuture<?> run(@Nonnull final CachedOutput cache) {
-        GoggleLangRegistry.collectFromRegisteredBlockEntities();
-        final PackOutput.PathProvider pathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "lang");
-        final Map<String, Map<String, String>> entriesByMod = GoggleLangRegistry.snapshot();
+        AzimuthGeneratedLangEntry.collectFromRegisteredBlockEntities();
+        final PackOutput.PathProvider pathProvider = this.output.createPathProvider(
+                PackOutput.Target.RESOURCE_PACK,
+                "lang"
+        );
+        final Map<String, Map<String, String>> entriesByMod = AzimuthGeneratedLangEntry.snapshot();
         final List<CompletableFuture<?>> futures = new ArrayList<>();
 
         entriesByMod.keySet().forEach(modId -> {
             final List<Map.Entry<String, String>> sortedEntries = new ArrayList<>();
-            GoggleLangRegistry.provideLang(modId, (k, v) -> sortedEntries.add(Map.entry(k, v)));
+            AzimuthGeneratedLangEntry.provideLang(modId, (k, v) -> sortedEntries.add(Map.entry(k, v)));
 
             if (sortedEntries.isEmpty()) {
                 return;
@@ -44,7 +46,8 @@ public class GoggleLangDataProvider implements DataProvider {
             final JsonObject json = new JsonObject();
             sortedEntries.forEach(e -> json.addProperty(e.getKey(), e.getValue()));
 
-            final Path path = pathProvider.json(Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(Objects.requireNonNull(modId), "en_us")));
+            final Path path = pathProvider.json(Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(
+                    Objects.requireNonNull(modId), "en_us")));
             futures.add(DataProvider.saveStable(Objects.requireNonNull(cache), json, Objects.requireNonNull(path)));
         });
 

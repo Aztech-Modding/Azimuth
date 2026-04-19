@@ -1,5 +1,6 @@
 package com.cake.azimuth.goggle.component;
 
+import com.cake.azimuth.foundation.lang.AzimuthGeneratedLangEntry;
 import com.cake.azimuth.goggle.builder.StatisticGoggleBuilder;
 import com.cake.azimuth.goggle.style.BarChartGoggleBuilder;
 import com.cake.azimuth.goggle.style.StatisticStyle;
@@ -10,21 +11,15 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-public class GoggleBuilderHelper {
-
-    private final String modId;
-
-    public GoggleBuilderHelper(final String modId) {
-        this.modId = modId;
-    }
+public record GoggleBuilderHelper(String modId) {
 
     public void provideLang(final BiConsumer<String, String> consumer) {
-        GoggleLangRegistry.provideLang(this.modId, consumer);
+        AzimuthGeneratedLangEntry.provideLang(this.modId, consumer);
     }
 
     public GoggleComponent component(final String keySuffix, final String defaultEnglish) {
-        final GoggleComponent component = GoggleComponent.scoped(modId, keySuffix, defaultEnglish);
-        GoggleLangRegistry.registerComponent(component);
+        final GoggleComponent component = GoggleComponent.scoped(this.modId, keySuffix, defaultEnglish);
+        AzimuthGeneratedLangEntry.registerComponent(component);
         return component;
     }
 
@@ -32,26 +27,28 @@ public class GoggleBuilderHelper {
         return GoggleComponent.absolute(translationKey);
     }
 
-    public StatisticStyle<StatisticGoggleBuilder> measurementUnitStyle(final String keySuffix, final String defaultEnglish) {
-        return measurementUnitStyle(keySuffix, defaultEnglish, null);
+    public StatisticStyle<StatisticGoggleBuilder> measurementUnitStyle(final String keySuffix,
+                                                                       final String defaultEnglish) {
+        return this.measurementUnitStyle(keySuffix, defaultEnglish, null);
     }
 
     public StatisticStyle<StatisticGoggleBuilder> measurementUnitStyle(final String keySuffix,
                                                                        final String defaultEnglish,
                                                                        final Consumer<StatisticGoggleBuilder> defaultConfig) {
-        final GoggleComponent unit = component("unit." + keySuffix, defaultEnglish);
-        return measurementUnitStyle(unit, defaultConfig);
+        final GoggleComponent unit = this.component("unit." + keySuffix, defaultEnglish);
+        return this.measurementUnitStyle(unit, defaultConfig);
     }
 
     public StatisticStyle<StatisticGoggleBuilder> measurementUnitStyle(final GoggleComponent unit) {
-        return measurementUnitStyle(unit, null);
+        return this.measurementUnitStyle(unit, null);
     }
 
     public StatisticStyle<StatisticGoggleBuilder> measurementUnitStyle(final GoggleComponent unit,
                                                                        final Consumer<StatisticGoggleBuilder> defaultConfig) {
         return builder -> {
             final Component suffix = Objects.requireNonNull(Component.literal(" ")
-                    .append(Objects.requireNonNull(builder.getBuilder().renderComponent(unit).copy().withStyle(ChatFormatting.DARK_GRAY))));
+                                                                    .append(Objects.requireNonNull(builder.getBuilder().renderComponent(
+                                                                            unit).copy().withStyle(ChatFormatting.DARK_GRAY))));
             builder.getStatisticDisplay().appendValueSuffix(suffix);
             if (defaultConfig != null) {
                 defaultConfig.accept(builder);
@@ -61,7 +58,7 @@ public class GoggleBuilderHelper {
     }
 
     public StatisticStyle<BarChartGoggleBuilder> barChartStyle(final int width) {
-        return barChartStyle(width, null);
+        return this.barChartStyle(width, null);
     }
 
     public StatisticStyle<BarChartGoggleBuilder> barChartStyle(final int width,
@@ -75,10 +72,6 @@ public class GoggleBuilderHelper {
             chartBuilder.getStatisticDisplay().refreshLine();
             return chartBuilder;
         };
-    }
-
-    public String modId() {
-        return modId;
     }
 
     public static int colorOf(final ChatFormatting formatting) {

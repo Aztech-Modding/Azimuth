@@ -8,7 +8,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 public abstract class BlockEntityBehaviourRenderer<T extends SmartBlockEntity> {
 
     @SuppressWarnings("unchecked")
-    public void castRenderSafe(final SuperBlockEntityBehaviour behaviour, final SmartBlockEntity blockEntity, final float partialTicks, final PoseStack ms, final MultiBufferSource buffer, final int light,
+    public void castRenderSafe(final SuperBlockEntityBehaviour behaviour,
+                               final SmartBlockEntity blockEntity,
+                               final float partialTicks,
+                               final PoseStack ms,
+                               final MultiBufferSource buffer,
+                               final int light,
                                final int overlay) {
         T castBlockEntity = null;
         try {
@@ -20,12 +25,17 @@ public abstract class BlockEntityBehaviourRenderer<T extends SmartBlockEntity> {
                             ", which was not within the bounds of this (" + this + ") renderer!");
         } finally {
             if (castBlockEntity != null) {
-                renderSafe(behaviour, castBlockEntity, partialTicks, ms, buffer, light, overlay);
+                this.renderSafe(behaviour, castBlockEntity, partialTicks, ms, buffer, light, overlay);
             }
         }
     }
 
-    public void renderSafe(final SuperBlockEntityBehaviour behaviour, final T blockEntity, final float partialTicks, final PoseStack ms, final MultiBufferSource buffer, final int light,
+    public void renderSafe(final SuperBlockEntityBehaviour behaviour,
+                           final T blockEntity,
+                           final float partialTicks,
+                           final PoseStack ms,
+                           final MultiBufferSource buffer,
+                           final int light,
                            final int overlay) {
     }
 

@@ -1,4 +1,4 @@
-package com.cake.azimuth.client.outlines;
+package com.cake.azimuth.utility.client.outlines;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -37,20 +37,30 @@ public class ExpandingLineOutline extends LineOutline {
                                final @NotNull Vector4f color,
                                final int lightmap,
                                final boolean disableNormals) {
-        bufferCuboidLine(ms, consumer, camera, lerpGrowingLinePoint(start, pt), lerpGrowingLinePoint(end, pt), width, color, lightmap, disableNormals);
+        this.bufferCuboidLine(
+                ms,
+                consumer,
+                camera,
+                this.lerpGrowingLinePoint(this.start, pt),
+                this.lerpGrowingLinePoint(this.end, pt),
+                width,
+                color,
+                lightmap,
+                disableNormals
+        );
     }
 
     private Vector3d lerpGrowingLinePoint(final Vector3d point, final float pt) {
-        final float progress = Math.min(1f, (growingTicksElapsed + pt) / growingTicks);
+        final float progress = Math.min(1f, (this.growingTicksElapsed + pt) / this.growingTicks);
 
         //Do an ease-out interpolation for a smoother effect
         final float oneMinusProgress = 1 - progress;
         final float easedProgress = 1 - (oneMinusProgress * oneMinusProgress * oneMinusProgress);
 
         final Vector3d midpoint = new Vector3d(
-                (start.x + end.x) / 2,
-                (start.y + end.y) / 2,
-                (start.z + end.z) / 2
+                (this.start.x + this.end.x) / 2,
+                (this.start.y + this.end.y) / 2,
+                (this.start.z + this.end.z) / 2
         );
 
         return new Vector3d(

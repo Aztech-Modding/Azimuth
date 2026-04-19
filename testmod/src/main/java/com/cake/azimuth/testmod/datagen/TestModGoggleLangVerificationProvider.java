@@ -1,6 +1,6 @@
 package com.cake.azimuth.testmod.datagen;
 
-import com.cake.azimuth.goggle.component.GoggleLangRegistry;
+import com.cake.azimuth.foundation.lang.AzimuthGeneratedLangEntry;
 import com.cake.azimuth.goggle.builder.GoggleBuilder;
 import com.cake.azimuth.testmod.AzimuthTestMod;
 import com.cake.azimuth.testmod.content.MagicTankBlockEntity;
@@ -38,11 +38,14 @@ public class TestModGoggleLangVerificationProvider implements DataProvider {
 
     @Override
     public @Nonnull CompletableFuture<?> run(@Nonnull final CachedOutput cachedOutput) {
-        final MagicTankBlockEntity dummy = new MagicTankBlockEntity(BlockPos.ZERO, AzimuthTestMod.MAGIC_TANK.get().defaultBlockState());
+        final MagicTankBlockEntity dummy = new MagicTankBlockEntity(
+                BlockPos.ZERO,
+                AzimuthTestMod.MAGIC_TANK.get().defaultBlockState()
+        );
         dummy.buildGoggleStructure(GoggleBuilder.datagen(AzimuthTestMod.MODID));
 
-        GoggleLangRegistry.collectFromRegisteredBlockEntities();
-        final Map<String, Map<String, String>> snapshot = GoggleLangRegistry.snapshot();
+        AzimuthGeneratedLangEntry.collectFromRegisteredBlockEntities();
+        final Map<String, Map<String, String>> snapshot = AzimuthGeneratedLangEntry.snapshot();
         final Map<String, String> testmodEntries = snapshot.getOrDefault(AzimuthTestMod.MODID, Map.of());
 
         final JsonArray missing = new JsonArray();
@@ -64,8 +67,14 @@ public class TestModGoggleLangVerificationProvider implements DataProvider {
         REQUIRED_KEYS.forEach(verified::add);
         report.add("verifiedKeys", verified);
 
-        final PackOutput.PathProvider pathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "goggle_validation");
-        final Path outputPath = pathProvider.json(Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(AzimuthTestMod.MODID, "report")));
+        final PackOutput.PathProvider pathProvider = this.output.createPathProvider(
+                PackOutput.Target.RESOURCE_PACK,
+                "goggle_validation"
+        );
+        final Path outputPath = pathProvider.json(Objects.requireNonNull(ResourceLocation.fromNamespaceAndPath(
+                AzimuthTestMod.MODID,
+                "report"
+        )));
         return DataProvider.saveStable(cachedOutput, report, outputPath);
     }
 

@@ -1,8 +1,8 @@
 package com.cake.azimuth.goggle.builder;
 
 import com.cake.azimuth.foundation.config.AzimuthConfigs;
+import com.cake.azimuth.foundation.lang.AzimuthGeneratedLangEntry;
 import com.cake.azimuth.goggle.component.GoggleComponent;
-import com.cake.azimuth.goggle.component.GoggleLangRegistry;
 import com.cake.azimuth.goggle.style.StatisticStyle;
 import net.createmod.catnip.lang.Lang;
 import net.createmod.catnip.lang.LangNumberFormat;
@@ -38,58 +38,64 @@ public record GoggleBuilder(
     }
 
     public GoggleBuilder section(final GoggleComponent component) {
-        if (!active) {
+        if (!this.active) {
             return this;
         }
-        final LineRef lineRef = appendLine(renderComponent(component).copy().withStyle(ChatFormatting.WHITE), indentLevel);
+        final LineRef lineRef = this.appendLine(
+                this.renderComponent(component).copy().withStyle(ChatFormatting.WHITE),
+                this.indentLevel
+        );
         lineRef.refresh(this);
         return this.withIndent(1);
     }
 
     public GoggleBuilder section(final String keySuffix, final String defaultEnglish) {
-        final GoggleComponent component = anonymousComponent(keySuffix, defaultEnglish);
-        return section(component);
+        final GoggleComponent component = this.anonymousComponent(keySuffix, defaultEnglish);
+        return this.section(component);
     }
 
     public LabelGoggleBuilder label(final GoggleComponent component) {
-        if (!active) {
+        if (!this.active) {
             return new LabelGoggleBuilder(this, false, LineRef.empty());
         }
-        final LineRef lineRef = appendLine(renderComponent(component).copy().withStyle(ChatFormatting.GRAY), indentLevel);
+        final LineRef lineRef = this.appendLine(
+                this.renderComponent(component).copy().withStyle(ChatFormatting.GRAY),
+                this.indentLevel
+        );
         lineRef.refresh(this);
         return new LabelGoggleBuilder(this, true, lineRef);
     }
 
     public LabelGoggleBuilder label(final String keySuffix, final String defaultEnglish) {
-        return label(anonymousComponent(keySuffix, defaultEnglish));
+        return this.label(this.anonymousComponent(keySuffix, defaultEnglish));
     }
 
     public StatisticGoggleBuilder statistic(final GoggleComponent component, final Object value) {
-        return statistic(component, value, null);
+        return this.statistic(component, value, null);
     }
 
     public <T extends StatisticGoggleBuilder> T statistic(final GoggleComponent component,
                                                           final Object value,
                                                           final StatisticStyle<T> style) {
-        return statisticInternal(component, value, null, style);
+        return this.statisticInternal(component, value, null, style);
     }
 
     public <T extends StatisticGoggleBuilder> T statistic(final GoggleComponent component,
                                                           final Object current,
                                                           final Object max,
                                                           final StatisticStyle<T> style) {
-        return statisticInternal(component, current, max, style);
+        return this.statisticInternal(component, current, max, style);
     }
 
     public StatisticGoggleBuilder statistic(final String keySuffix, final String defaultEnglish, final Object value) {
-        return statistic(anonymousComponent(keySuffix, defaultEnglish), value, null);
+        return this.statistic(this.anonymousComponent(keySuffix, defaultEnglish), value, null);
     }
 
     public <T extends StatisticGoggleBuilder> T statistic(final String keySuffix,
                                                           final String defaultEnglish,
                                                           final Object value,
                                                           final StatisticStyle<T> style) {
-        return statistic(anonymousComponent(keySuffix, defaultEnglish), value, style);
+        return this.statistic(this.anonymousComponent(keySuffix, defaultEnglish), value, style);
     }
 
     public <T extends StatisticGoggleBuilder> T statistic(final String keySuffix,
@@ -97,67 +103,81 @@ public record GoggleBuilder(
                                                           final Object current,
                                                           final Object max,
                                                           final StatisticStyle<T> style) {
-        return statistic(anonymousComponent(keySuffix, defaultEnglish), current, max, style);
+        return this.statistic(this.anonymousComponent(keySuffix, defaultEnglish), current, max, style);
     }
 
     public GoggleBuilder withRenderCondition(final boolean condition) {
         final boolean newActive = this.active && (this.datagen || condition);
-        return new GoggleBuilder(tooltip, isPlayerSneaking, initialTooltipSize, modId, datagen, indentLevel, newActive, this);
+        return new GoggleBuilder(
+                this.tooltip,
+                this.isPlayerSneaking,
+                this.initialTooltipSize,
+                this.modId,
+                this.datagen,
+                this.indentLevel,
+                newActive,
+                this
+        );
     }
 
     public GoggleBuilder conditional(final Supplier<Boolean> condition) {
-        return withRenderCondition(condition.get());
+        return this.withRenderCondition(condition.get());
     }
 
     public GoggleBuilder isSneaking() {
-        return withRenderCondition(isPlayerSneaking);
+        return this.withRenderCondition(this.isPlayerSneaking);
     }
 
     public GoggleBuilder isNotSneaking() {
-        return withRenderCondition(!isPlayerSneaking);
+        return this.withRenderCondition(!this.isPlayerSneaking);
     }
 
     public GoggleBuilder endConditional() {
-        return parent != null ? parent : this;
+        return this.parent != null ? this.parent : this;
     }
 
     public GoggleBuilder withIndent(final int level) {
-        return new GoggleBuilder(tooltip, isPlayerSneaking, initialTooltipSize, modId, datagen, level, active, parent);
+        return new GoggleBuilder(
+                this.tooltip, this.isPlayerSneaking, this.initialTooltipSize,
+                this.modId, this.datagen, level, this.active,
+                this.parent
+        );
     }
 
     public List<Component> getRawTooltip() {
-        return tooltip;
+        return this.tooltip;
     }
 
     public boolean hasAppendedData() {
-        return tooltip.size() > initialTooltipSize;
+        return this.tooltip.size() > this.initialTooltipSize;
     }
 
     public MutableComponent renderComponent(final GoggleComponent component) {
         final String key = Objects.requireNonNull(component.fullTranslationKey());
         if (AzimuthConfigs.tooltipBuilderDebugEnabled()) {
-            return component.defaultEnglish() != null ? Component.literal(component.defaultEnglish()) : Component.translatable(key);
+            return component.defaultEnglish() != null ? Component.literal(component.defaultEnglish()) : Component.translatable(
+                    key);
         }
         return Component.translatable(key);
     }
 
     private GoggleComponent anonymousComponent(final String keySuffix, final String defaultEnglish) {
-        GoggleLangRegistry.registerAnonymous(modId, keySuffix, defaultEnglish);
-        return GoggleComponent.scoped(modId, keySuffix, defaultEnglish);
+        AzimuthGeneratedLangEntry.registerAnonymous(this.modId, keySuffix, defaultEnglish);
+        return GoggleComponent.scoped(this.modId, keySuffix, defaultEnglish);
     }
 
     private LineRef appendLine(final MutableComponent content, final int indent) {
-        final MutableComponent wrapped = wrapForGoggles(content, indent);
-        tooltip.add(wrapped);
-        return new LineRef(tooltip.size() - 1, indent, content);
+        final MutableComponent wrapped = this.wrapForGoggles(content, indent);
+        this.tooltip.add(wrapped);
+        return new LineRef(this.tooltip.size() - 1, indent, content);
     }
 
     private MutableComponent wrapForGoggles(final Component content, final int indent) {
-        if (datagen) {
+        if (this.datagen) {
             return Component.literal(" ".repeat(Math.max(0, 4 + indent))).append(content.copy());
         }
         final List<MutableComponent> temp = new ArrayList<>(1);
-        Lang.builder(Objects.requireNonNull(modId)).add(Objects.requireNonNull(content)).forGoggles(temp, indent);
+        Lang.builder(Objects.requireNonNull(this.modId)).add(Objects.requireNonNull(content)).forGoggles(temp, indent);
         return temp.getFirst();
     }
 
@@ -166,23 +186,30 @@ public record GoggleBuilder(
                                                                    final Object value,
                                                                    final Object maxValue,
                                                                    final StatisticStyle<T> style) {
-        if (!active) {
+        if (!this.active) {
             return (T) new StatisticGoggleBuilder(this, false, LineRef.empty(), LineRef.empty(), value, maxValue);
         }
 
-        final MutableComponent label = renderComponent(component).copy().withStyle(ChatFormatting.GRAY);
-        final LineRef labelLineRef = appendLine(label, indentLevel);
+        final MutableComponent label = this.renderComponent(component).copy().withStyle(ChatFormatting.GRAY);
+        final LineRef labelLineRef = this.appendLine(label, this.indentLevel);
 
-        final MutableComponent valueComponent = toValueComponent(value).withStyle(ChatFormatting.AQUA);
+        final MutableComponent valueComponent = this.toValueComponent(value).withStyle(ChatFormatting.AQUA);
         final MutableComponent lineComponent = Component.empty().append(Objects.requireNonNull(valueComponent));
 
         if (maxValue != null) {
             lineComponent.append(Objects.requireNonNull(Component.literal(" / ").withStyle(ChatFormatting.DARK_GRAY)));
-            lineComponent.append(Objects.requireNonNull(toValueComponent(maxValue).withStyle(ChatFormatting.DARK_GRAY)));
+            lineComponent.append(Objects.requireNonNull(this.toValueComponent(maxValue).withStyle(ChatFormatting.DARK_GRAY)));
         }
 
-        final LineRef statLineRef = appendLine(lineComponent, indentLevel + 1);
-        final StatisticGoggleBuilder statisticBuilder = new StatisticGoggleBuilder(this, true, labelLineRef, statLineRef, value, maxValue);
+        final LineRef statLineRef = this.appendLine(lineComponent, this.indentLevel + 1);
+        final StatisticGoggleBuilder statisticBuilder = new StatisticGoggleBuilder(
+                this,
+                true,
+                labelLineRef,
+                statLineRef,
+                value,
+                maxValue
+        );
         if (style == null) {
             return (T) statisticBuilder;
         }
@@ -232,39 +259,39 @@ public record GoggleBuilder(
         }
 
         public boolean exists() {
-            return tooltipIndex >= 0;
+            return this.tooltipIndex >= 0;
         }
 
         public void refresh(final GoggleBuilder builder) {
-            if (!exists()) {
+            if (!this.exists()) {
                 return;
             }
-            builder.tooltip().set(tooltipIndex, builder.wrapForGoggles(line, indent));
+            builder.tooltip().set(this.tooltipIndex, builder.wrapForGoggles(this.line, this.indent));
         }
 
         public void recolor(final GoggleBuilder builder, final Style style) {
-            if (!exists()) {
+            if (!this.exists()) {
                 return;
             }
-            line = line.copy().withStyle(existing -> existing.applyTo(Objects.requireNonNull(style)));
-            refresh(builder);
+            this.line = this.line.copy().withStyle(existing -> existing.applyTo(Objects.requireNonNull(style)));
+            this.refresh(builder);
         }
 
         public void recolor(final GoggleBuilder builder, final ChatFormatting color) {
-            recolor(builder, Style.EMPTY.applyFormat(Objects.requireNonNull(color)));
+            this.recolor(builder, Style.EMPTY.applyFormat(Objects.requireNonNull(color)));
         }
 
         public void recolor(final GoggleBuilder builder, final int rgb) {
-            recolor(builder, Style.EMPTY.withColor(TextColor.fromRgb(rgb)));
+            this.recolor(builder, Style.EMPTY.withColor(TextColor.fromRgb(rgb)));
         }
 
         public void recolor(final GoggleBuilder builder, final TextColor color) {
-            recolor(builder, Style.EMPTY.withColor(color));
+            this.recolor(builder, Style.EMPTY.withColor(color));
         }
 
         public void append(final GoggleBuilder builder, final Component component) {
-            line.append(Objects.requireNonNull(component));
-            refresh(builder);
+            this.line.append(Objects.requireNonNull(component));
+            this.refresh(builder);
         }
     }
 }
