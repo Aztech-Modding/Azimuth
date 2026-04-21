@@ -19,8 +19,13 @@ public interface IBuildGoggleInformation extends IHaveGoggleInformation {
 
     @Override
     default boolean addToGoggleTooltip(final List<Component> tooltip, final boolean isPlayerSneaking) {
-        final GoggleBuilder builder = new GoggleBuilder(tooltip, isPlayerSneaking, getModId());
         buildGoggleStructure(builder);
+        return this.addGoggleBuilderToGoggleTooltip(tooltip, isPlayerSneaking);
+    }
+
+    default boolean addGoggleBuilderToGoggleTooltip(final List<Component> tooltip, final boolean isPlayerSneaking) {
+        final GoggleBuilder builder = new GoggleBuilder(tooltip, isPlayerSneaking, this.getModId());
+        this.buildGoggleStructure(builder);
         if (AzimuthConfigs.tooltipBuilderDebugEnabled() && builder.hasAppendedData()) {
             builder.label("debug_enabled", "Tooltip builder debug enabled (Using live code lang)")
                     .withLabelFormatting(ChatFormatting.BOLD)
@@ -28,4 +33,5 @@ public interface IBuildGoggleInformation extends IHaveGoggleInformation {
         }
         return builder.hasAppendedData();
     }
+
 }
