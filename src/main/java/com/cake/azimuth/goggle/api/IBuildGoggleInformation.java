@@ -19,7 +19,6 @@ public interface IBuildGoggleInformation extends IHaveGoggleInformation {
 
     @Override
     default boolean addToGoggleTooltip(final List<Component> tooltip, final boolean isPlayerSneaking) {
-        buildGoggleStructure(builder);
         return this.addGoggleBuilderToGoggleTooltip(tooltip, isPlayerSneaking);
     }
 
