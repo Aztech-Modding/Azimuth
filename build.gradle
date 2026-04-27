@@ -15,10 +15,7 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-def isSnapshotVersioning = project.hasProperty('snapshot_versioning') && project.property('snapshot_versioning').toString().toBoolean()
-def resolvedVersion = isSnapshotVersioning ? "${mod_version}-SNAPSHOT" : mod_version
-
-version = resolvedVersion
+version = mod_version
 group = mod_group_id
 
 repositories {

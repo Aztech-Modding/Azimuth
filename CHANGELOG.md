@@ -11,3 +11,7 @@
 - Misc internal changes and tweaks
 - System for ponders to register foreign attribution
 - Ponder coordinate block to help determine local coordinates within a ponder scene
+
+# 1.21.1-1.2.2
+
+- Slight tweaks to goggle code, planning to delete azimuth goggle system soon
