@@ -13,17 +13,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemRequirement.class)
 public class ItemRequirementMixin {
 
-    @Inject(method = "of(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;)Lcom/simibubi/create/content/schematics/requirement/ItemRequirement;", at = @At("HEAD"), cancellable = true)
-    private static void of(final BlockState state, final BlockEntity be, final CallbackInfoReturnable<ItemRequirement> cir) {
+    @Inject(method = "of(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/entity/BlockEntity;)Lcom/simibubi/create/content/schematics/requirement/ItemRequirement;", at = @At("RETURN"), cancellable = true)
+    private static void of(final BlockState state,
+                           final BlockEntity be,
+                           final CallbackInfoReturnable<ItemRequirement> cir) {
+        ItemRequirement requirement = cir.getReturnValue();
         if (be instanceof final AzimuthSmartBlockEntityExtension asbee) {
             for (final ItemRequirementBehaviourExtension itemRequirementBehaviour : asbee.azimuth$getItemRequirementExtensionCache()) {
                 final ItemRequirement behaviourRequirements = itemRequirementBehaviour.getRequiredItems(state);
                 if (behaviourRequirements != null) {
-                    cir.setReturnValue(behaviourRequirements.union(cir.getReturnValue()));
-                    return;
+                    if (requirement == null) {
+                        requirement = behaviourRequirements;
+                    } else {
+                        requirement = requirement.union(behaviourRequirements);
+                    }
                 }
             }
-
         }
+        cir.setReturnValue(requirement);
     }
 }
