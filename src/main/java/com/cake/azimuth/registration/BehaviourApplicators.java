@@ -32,7 +32,6 @@ public class BehaviourApplicators {
                     behaviours.addAll(appliedBehaviours);
                 }
             }
-            return behaviours;
         }
 
         for (final Function<SmartBlockEntity, List<BlockEntityBehaviour>> applicator : BEHAVIOUR_APPLICATORS) {
@@ -43,7 +42,8 @@ public class BehaviourApplicators {
         return behaviours;
     }
 
-    public static void registerForType(final Supplier<? extends BlockEntityType<?>> typeSupplier, final Function<SmartBlockEntity, List<BlockEntityBehaviour>> applicator) {
+    public static void registerForType(final Supplier<? extends BlockEntityType<?>> typeSupplier,
+                                       final Function<SmartBlockEntity, List<BlockEntityBehaviour>> applicator) {
         PENDING_TYPE_APPLICATORS.add(new PendingTypeApplicator(typeSupplier, applicator));
     }
 
