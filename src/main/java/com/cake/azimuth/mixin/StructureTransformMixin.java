@@ -16,7 +16,7 @@ public class StructureTransformMixin {
     public void apply(final BlockEntity be, final CallbackInfo ci) {
         if (be instanceof final AzimuthSmartBlockEntityExtension asbee) {
             for (final SuperBlockEntityBehaviour extension : asbee.azimuth$getSuperBehaviours()) {
-                extension.transform(be, ((StructureTransform) (Object) this));
+                extension.transform(be, ((StructureTransform) (Object) this));//TODO: make this interface specific
             }
         }
     }
