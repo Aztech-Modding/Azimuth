@@ -15,3 +15,7 @@
 # 1.21.1-1.2.2
 
 - Slight tweaks to goggle code, planning to delete azimuth goggle system soon
+
+# 1.21.1-1.3.0
+
+- Removed goggle api

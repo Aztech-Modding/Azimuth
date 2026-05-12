@@ -2,9 +2,6 @@ package com.cake.azimuth;
 
 import com.cake.azimuth.content.AzContent;
 import com.cake.azimuth.foundation.config.AzimuthConfigs;
-import com.cake.azimuth.registration.goggle.AzimuthGoggleStyles;
-import com.cake.azimuth.registration.goggle.CreateGoggleComponents;
-import com.cake.azimuth.registration.goggle.CreateGoggleStyles;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.resources.ResourceLocation;
@@ -25,10 +22,6 @@ public class Azimuth {
         REGISTRATE.registerEventListeners(modEventBus);
 
         AzimuthConfigs.register(ModLoadingContext.get(), modContainer);
-
-        CreateGoggleStyles.register();
-        AzimuthGoggleStyles.register();
-        CreateGoggleComponents.register();
 
         AzContent.register();
         AzimuthData.addRegistrateData();

@@ -1,8 +1,7 @@
 package com.cake.azimuth;
 
-import com.cake.azimuth.foundation.config.AzimuthConfigs;
 import com.cake.azimuth.foundation.config.AzimuthConfigScreen;
-import com.cake.azimuth.goggle.command.AzimuthClientCommands;
+import com.cake.azimuth.foundation.config.AzimuthConfigs;
 import net.createmod.catnip.config.ui.BaseConfigScreen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -31,15 +30,19 @@ public class AzimuthClient {
     }
 
     private static void clientInit() {
-        BaseConfigScreen.setDefaultActionFor(Azimuth.MODID, base -> base
-                .withButtonLabels("Client Settings", "Common Settings", "Server Settings")
-                .withSpecs(AzimuthConfigs.client().specification, AzimuthConfigs.common().specification, AzimuthConfigs.server().specification)
+        BaseConfigScreen.setDefaultActionFor(
+                Azimuth.MODID, base -> base
+                        .withButtonLabels("Client Settings", "Common Settings", "Server Settings")
+                        .withSpecs(
+                                AzimuthConfigs.client().specification,
+                                AzimuthConfigs.common().specification,
+                                AzimuthConfigs.server().specification
+                        )
         );
     }
 
     @SubscribeEvent
     static void onRegisterClientCommands(final RegisterClientCommandsEvent event) {
-        AzimuthClientCommands.register(event.getDispatcher());
     }
 
     @EventBusSubscriber(modid = Azimuth.MODID, value = Dist.CLIENT)

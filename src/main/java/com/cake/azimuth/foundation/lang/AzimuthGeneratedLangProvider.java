@@ -25,7 +25,6 @@ public class AzimuthGeneratedLangProvider implements DataProvider {
 
     @Override
     public @NotNull CompletableFuture<?> run(@Nonnull final CachedOutput cache) {
-        AzimuthGeneratedLangEntry.collectFromRegisteredBlockEntities();
         final PackOutput.PathProvider pathProvider = this.output.createPathProvider(
                 PackOutput.Target.RESOURCE_PACK,
                 "lang"
