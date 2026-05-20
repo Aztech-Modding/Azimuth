@@ -19,3 +19,8 @@
 # 1.21.1-1.3.0
 
 - Removed goggle api
+-
+
+# 1.21.1-1.3.1
+
+- Added super block entity behavior removal listener

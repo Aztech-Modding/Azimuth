@@ -1,4 +1,4 @@
-package com.cake.azimuth.mixin;
+package com.cake.azimuth.mixin.super_behavior;
 
 import com.cake.azimuth.behaviour.render.WrappingVisualizer;
 import com.cake.azimuth.registration.VisualWrapperInterest;
@@ -22,7 +22,10 @@ public class VisualizerRegistryMixin {
                     target = "Ldev/engine_room/flywheel/api/internal/FlwApiLink;setVisualizer(Lnet/minecraft/world/level/block/entity/BlockEntityType;Ldev/engine_room/flywheel/api/visualization/BlockEntityVisualizer;)V"
             )
     )
-    private static <T extends BlockEntity> void azimuth$wrapInterestedVisualizer(final FlwApiLink instance, final BlockEntityType<T> type, final BlockEntityVisualizer<? super T> visualizer, final Operation<Void> original) {
+    private static <T extends BlockEntity> void azimuth$wrapInterestedVisualizer(final FlwApiLink instance,
+                                                                                 final BlockEntityType<T> type,
+                                                                                 final BlockEntityVisualizer<? super T> visualizer,
+                                                                                 final Operation<Void> original) {
         if (!VisualWrapperInterest.isInterested(type)) {
             original.call(instance, type, visualizer);
             return;

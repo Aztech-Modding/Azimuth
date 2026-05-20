@@ -1,4 +1,4 @@
-package com.cake.azimuth.mixin;
+package com.cake.azimuth.mixin.super_behavior;
 
 import com.cake.azimuth.behaviour.AzimuthSmartBlockEntityExtension;
 import com.cake.azimuth.behaviour.extensions.ItemRequirementBehaviourExtension;

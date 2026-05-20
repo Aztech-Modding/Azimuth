@@ -1,4 +1,4 @@
-package com.cake.azimuth.mixin;
+package com.cake.azimuth.mixin.super_behavior;
 
 import com.cake.azimuth.behaviour.AzimuthSmartBlockEntityExtension;
 import com.cake.azimuth.behaviour.extensions.RenderedBehaviourExtension;
@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.At;
 public class CachedRenderBBBlockEntityMixin {
 
     @WrapOperation(method = "getRenderBoundingBox", at = @At(value = "INVOKE", target = "Lcom/simibubi/create/foundation/blockEntity/CachedRenderBBBlockEntity;createRenderBoundingBox()Lnet/minecraft/world/phys/AABB;"))
-    private AABB azimuth$includeAdditionalRenderBounds(final CachedRenderBBBlockEntity instance, final Operation<AABB> original) {
+    private AABB azimuth$includeAdditionalRenderBounds(final CachedRenderBBBlockEntity instance,
+                                                       final Operation<AABB> original) {
         AABB originalBox = original.call(instance);
         if (this instanceof final AzimuthSmartBlockEntityExtension asbee) {
             for (final RenderedBehaviourExtension behaviour : asbee.azimuth$getRenderedExtensionCache()) {

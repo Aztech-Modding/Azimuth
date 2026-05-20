@@ -1,4 +1,4 @@
-package com.cake.azimuth.mixin;
+package com.cake.azimuth.mixin.super_behavior;
 
 import com.cake.azimuth.behaviour.AzimuthSmartBlockEntityExtension;
 import com.cake.azimuth.behaviour.extensions.KineticBehaviourExtension;
@@ -33,11 +33,33 @@ public class RotationPropagatorMixin {
     }
 
     @WrapOperation(method = "getRotationSpeedModifier", at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/kinetics/base/KineticBlockEntity;propagateRotationTo(Lcom/simibubi/create/content/kinetics/base/KineticBlockEntity;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;ZZ)F"))
-    private static float propagateRotationTo(final KineticBlockEntity instance, final KineticBlockEntity target, final BlockState stateFrom, final BlockState stateTo, final BlockPos diff, final boolean connectedViaAxes, final boolean connectedViaCogs, final Operation<Float> original) {
-        final float originalValue = original.call(instance, target, stateFrom, stateTo, diff, connectedViaAxes, connectedViaCogs);
+    private static float propagateRotationTo(final KineticBlockEntity instance,
+                                             final KineticBlockEntity target,
+                                             final BlockState stateFrom,
+                                             final BlockState stateTo,
+                                             final BlockPos diff,
+                                             final boolean connectedViaAxes,
+                                             final boolean connectedViaCogs,
+                                             final Operation<Float> original) {
+        final float originalValue = original.call(
+                instance,
+                target,
+                stateFrom,
+                stateTo,
+                diff,
+                connectedViaAxes,
+                connectedViaCogs
+        );
         if (instance instanceof final AzimuthSmartBlockEntityExtension asbee) {
             for (final KineticBehaviourExtension behaviour : asbee.azimuth$getKineticExtensionCache()) {
-                final float hardPropagated = behaviour.forcePropagateRotationTo(target, stateFrom, stateTo, diff, connectedViaAxes, connectedViaCogs);
+                final float hardPropagated = behaviour.forcePropagateRotationTo(
+                        target,
+                        stateFrom,
+                        stateTo,
+                        diff,
+                        connectedViaAxes,
+                        connectedViaCogs
+                );
                 if (hardPropagated != 0) {
                     return hardPropagated;
                 }
@@ -46,7 +68,14 @@ public class RotationPropagatorMixin {
                 return originalValue;
 
             for (final KineticBehaviourExtension behaviour : asbee.azimuth$getKineticExtensionCache()) {
-                final float propagated = behaviour.propagateRotationTo(target, stateFrom, stateTo, diff, connectedViaAxes, connectedViaCogs);
+                final float propagated = behaviour.propagateRotationTo(
+                        target,
+                        stateFrom,
+                        stateTo,
+                        diff,
+                        connectedViaAxes,
+                        connectedViaCogs
+                );
                 if (propagated != 0) {
                     return propagated;
                 }

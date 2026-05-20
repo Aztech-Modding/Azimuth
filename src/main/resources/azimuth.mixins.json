@@ -5,17 +5,18 @@
   "mixins": [
     "AllBlocksMixin",
     "BlockBuilderItemOverrideMixin",
-    "CachedRenderBBBlockEntityMixin",
     "CreateAdvancementIdMixin",
-    "ItemRequirementMixin",
-    "RotationPropagatorMixin",
-    "SafeBlockEntityRendererMixin",
-    "SmartBlockEntityMixin",
-    "StructureTransformMixin",
-    "VisualizationHelperMixin",
     "ponder.PonderSceneRegistryMixin",
     "ponder.PonderTooltipHandlerAccessor",
-    "ponder.PonderTooltipHandlerMixin"
+    "ponder.PonderTooltipHandlerMixin",
+    "super_behavior.CachedRenderBBBlockEntityMixin",
+    "super_behavior.ItemRequirementMixin",
+    "super_behavior.LevelChunkMixin",
+    "super_behavior.RotationPropagatorMixin",
+    "super_behavior.SafeBlockEntityRendererMixin",
+    "super_behavior.SmartBlockEntityMixin",
+    "super_behavior.StructureTransformMixin",
+    "super_behavior.VisualizationHelperMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -24,8 +25,8 @@
     "requireAnnotations": true
   },
   "client": [
-    "VisualizerRegistryMixin",
+    "ponder.PonderUILabelMixin",
     "ponder.PonderUIMixin",
-    "ponder.PonderUILabelMixin"
+    "super_behavior.VisualizerRegistryMixin"
   ]
 }

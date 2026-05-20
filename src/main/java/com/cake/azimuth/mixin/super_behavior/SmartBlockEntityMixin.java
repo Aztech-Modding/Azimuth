@@ -1,4 +1,4 @@
-package com.cake.azimuth.mixin;
+package com.cake.azimuth.mixin.super_behavior;
 
 import com.cake.azimuth.behaviour.AzimuthSmartBlockEntityExtension;
 import com.cake.azimuth.behaviour.CachedBehaviourExtensionAccess;
@@ -35,6 +35,8 @@ public abstract class SmartBlockEntityMixin extends CachedRenderBBBlockEntity im
     @Final
     private Map<BehaviourType<?>, BlockEntityBehaviour> behaviours;
 
+    @Shadow
+    private boolean chunkUnloaded;
     @Unique
     private final List<Runnable> azimuth$cacheClearListeners = new ArrayList<>();
 
@@ -43,47 +45,58 @@ public abstract class SmartBlockEntityMixin extends CachedRenderBBBlockEntity im
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void azimuth$constructWithAdditionalBehaviours(final BlockEntityType<?> type, final BlockPos pos, final BlockState state, final CallbackInfo ci) {
+    public void azimuth$constructWithAdditionalBehaviours(final BlockEntityType<?> type,
+                                                          final BlockPos pos,
+                                                          final BlockState state,
+                                                          final CallbackInfo ci) {
         for (final BlockEntityBehaviour b : BehaviourApplicators.getBehavioursFor((SmartBlockEntity) (Object) this)) {
-            behaviours.put(b.getType(), b);
+            this.behaviours.put(b.getType(), b);
+        }
+    }
+
+    @Inject(method = "setRemoved", at = @At("TAIL"))
+    public void azimuth$setRemoved(final CallbackInfo ci) {
+        for (final SuperBlockEntityBehaviour behaviour : this.azimuth$getSuperBehaviours()) {
+            if (!this.chunkUnloaded)
+                behaviour.remove();
         }
     }
 
     @Override
     public void azimuth$updateBehaviourExtensionCache() {
-        for (final Runnable cacheClearListener : azimuth$cacheClearListeners) {
+        for (final Runnable cacheClearListener : this.azimuth$cacheClearListeners) {
             cacheClearListener.run();
         }
-        azimuth$cacheClearListeners.clear();
+        this.azimuth$cacheClearListeners.clear();
     }
 
     @SuppressWarnings("unchecked")
     @Unique
     public <T> List<T> azimuth$searchExtensionBehaviours(final Predicate<SuperBlockEntityBehaviour> filter) {
-        return behaviours
+        return this.behaviours
                 .values()
                 .stream()
                 .filter((beb) ->
-                        beb instanceof final SuperBlockEntityBehaviour sbeb &&
-                                filter.test(sbeb))
+                                beb instanceof final SuperBlockEntityBehaviour sbeb &&
+                                        filter.test(sbeb))
                 .map(sbeb -> (T) sbeb)
                 .toList();
     }
 
     @Unique
     public SuperBlockEntityBehaviour[] azimuth$searchSuperBehaviours() {
-        return behaviours
+        return this.behaviours
                 .values()
                 .stream()
                 .filter((beb) ->
-                        beb instanceof SuperBlockEntityBehaviour)
+                                beb instanceof SuperBlockEntityBehaviour)
                 .map(sbeb -> (SuperBlockEntityBehaviour) sbeb)
                 .toArray(SuperBlockEntityBehaviour[]::new);
     }
 
     @Override
     public void azimuth$addCacheClearListener(final Runnable cacheClearListener) {
-        azimuth$cacheClearListeners.add(cacheClearListener);
+        this.azimuth$cacheClearListeners.add(cacheClearListener);
     }
 
     @Unique
@@ -93,34 +106,46 @@ public abstract class SmartBlockEntityMixin extends CachedRenderBBBlockEntity im
     //Caches by extension type
     @Unique
     private final CachedBehaviourExtensionAccess<ItemRequirementBehaviourExtension> azimuth$itemRequirementExtension =
-            new CachedBehaviourExtensionAccess<>(ItemRequirementBehaviourExtension.class, () -> this, (e) -> e instanceof ItemRequirementBehaviourExtension);
+            new CachedBehaviourExtensionAccess<>(
+                    ItemRequirementBehaviourExtension.class,
+                    () -> this,
+                    (e) -> e instanceof ItemRequirementBehaviourExtension
+            );
 
     @Override
     public SuperBlockEntityBehaviour[] azimuth$getSuperBehaviours() {
-        return azimuth$extensionCacheAccess.get();
+        return this.azimuth$extensionCacheAccess.get();
     }
 
     @Override
     public ItemRequirementBehaviourExtension[] azimuth$getItemRequirementExtensionCache() {
-        return azimuth$itemRequirementExtension.get();
+        return this.azimuth$itemRequirementExtension.get();
     }
 
     @Unique
     private final CachedBehaviourExtensionAccess<RenderedBehaviourExtension> azimuth$renderedBehaviourCacheAccess =
-            new CachedBehaviourExtensionAccess<>(RenderedBehaviourExtension.class, () -> this, (e) -> e instanceof RenderedBehaviourExtension);
+            new CachedBehaviourExtensionAccess<>(
+                    RenderedBehaviourExtension.class,
+                    () -> this,
+                    (e) -> e instanceof RenderedBehaviourExtension
+            );
 
     @Override
     public RenderedBehaviourExtension[] azimuth$getRenderedExtensionCache() {
-        return azimuth$renderedBehaviourCacheAccess.get();
+        return this.azimuth$renderedBehaviourCacheAccess.get();
     }
 
     @Unique
     private final CachedBehaviourExtensionAccess<KineticBehaviourExtension> azimuth$kineticBehaviourCacheAccess =
-            new CachedBehaviourExtensionAccess<>(KineticBehaviourExtension.class, () -> this, (e) -> e instanceof KineticBehaviourExtension);
+            new CachedBehaviourExtensionAccess<>(
+                    KineticBehaviourExtension.class,
+                    () -> this,
+                    (e) -> e instanceof KineticBehaviourExtension
+            );
 
     @Override
     public KineticBehaviourExtension[] azimuth$getKineticExtensionCache() {
-        return azimuth$kineticBehaviourCacheAccess.get();
+        return this.azimuth$kineticBehaviourCacheAccess.get();
     }
 
 }

@@ -49,15 +49,21 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
         return this.getLevel() != null;
     }
 
-    public boolean isClientLevel() {
+    public boolean isClientSide() {
         return this.getLevel().isClientSide;
     }
 
     public boolean isServerLevel() {
-        return !this.isClientLevel();
+        return !this.isClientSide();
     }
 
     public void transform(final BlockEntity be, final StructureTransform structureTransformMixin) {
+    }
+
+    public void remove() {
+    }
+
+    public void removeFromLevel(final boolean isMoving) {
     }
 
     //region Static Get Helpers
@@ -111,7 +117,7 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
                                     ", but it was not present or was not of the correct type." +
                                     (hasRegisteredApplicator ? "The block entity was registered and had a registered applicator for this type," :
                                             blockEntityPresent ? "The block entity was registered but did not have a registered applicator for this type," :
-                                                    "No block entity was present at this position,") + " and the blockstate was " + level.getBlockState(
+                                            "No block entity was present at this position,") + " and the blockstate was " + level.getBlockState(
                                     pos)
                     );
                 });
