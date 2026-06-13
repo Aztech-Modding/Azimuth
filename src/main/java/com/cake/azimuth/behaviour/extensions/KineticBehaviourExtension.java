@@ -19,7 +19,9 @@ public interface KineticBehaviourExtension extends BehaviourExtension {
      *
      * @return an array list of the neighbors by default
      */
-    default List<BlockPos> addExtraPropagationLocations(final IRotate block, final BlockState state, final List<BlockPos> neighbours) {
+    default List<BlockPos> addExtraPropagationLocations(final IRotate block,
+                                                        final BlockState state,
+                                                        final List<BlockPos> neighbours) {
         return neighbours;
     }
 
@@ -29,7 +31,12 @@ public interface KineticBehaviourExtension extends BehaviourExtension {
      *
      * @return the propagated rotation to use instead of 0
      */
-    default float propagateRotationTo(final KineticBlockEntity target, final BlockState stateFrom, final BlockState stateTo, final BlockPos diff, final boolean connectedViaAxes, final boolean connectedViaCogs) {
+    default float propagateRotationTo(final KineticBlockEntity target,
+                                      final BlockState stateFrom,
+                                      final BlockState stateTo,
+                                      final BlockPos diff,
+                                      final boolean connectedViaAxes,
+                                      final boolean connectedViaCogs) {
         return 0;
     }
 
@@ -39,12 +46,17 @@ public interface KineticBehaviourExtension extends BehaviourExtension {
      *
      * @return the propagated rotation to use, ignored if 0
      */
-    default float forcePropagateRotationTo(final KineticBlockEntity target, final BlockState stateFrom, final BlockState stateTo, final BlockPos diff, final boolean connectedViaAxes, final boolean connectedViaCogs) {
+    default float forcePropagateRotationTo(final KineticBlockEntity target,
+                                           final BlockState stateFrom,
+                                           final BlockState stateTo,
+                                           final BlockPos diff,
+                                           final boolean connectedViaAxes,
+                                           final boolean connectedViaCogs) {
         return 0;
     }
 
     default void detachKinetics() {
-        final BlockEntity blockEntity = getBlockEntity();
+        final BlockEntity blockEntity = this.getBlockEntity();
         if (blockEntity instanceof final KineticBlockEntity kineticBlockEntity) {
             kineticBlockEntity.detachKinetics();
         } else {
@@ -53,7 +65,7 @@ public interface KineticBehaviourExtension extends BehaviourExtension {
     }
 
     default void attachKinetics() {
-        final BlockEntity blockEntity = getBlockEntity();
+        final BlockEntity blockEntity = this.getBlockEntity();
         if (blockEntity instanceof final KineticBlockEntity kineticBlockEntity) {
             kineticBlockEntity.attachKinetics();
         } else {
@@ -62,7 +74,7 @@ public interface KineticBehaviourExtension extends BehaviourExtension {
     }
 
     default void repropagateKinetics() {
-        final BlockEntity blockEntity = getBlockEntity();
+        final BlockEntity blockEntity = this.getBlockEntity();
         if (blockEntity instanceof final KineticBlockEntity kineticBlockEntity) {
             kineticBlockEntity.detachKinetics();
             kineticBlockEntity.updateSpeed = true;
@@ -70,7 +82,5 @@ public interface KineticBehaviourExtension extends BehaviourExtension {
             throw new IllegalStateException("BlockEntity must be a KineticBlockEntity to detach kinetics");
         }
     }
-
-    BlockEntity getBlockEntity();
 
 }

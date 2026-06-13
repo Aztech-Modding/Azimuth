@@ -23,6 +23,8 @@ public interface AzimuthSmartBlockEntityExtension {
      */
     void azimuth$updateBehaviourExtensionCache();
 
+    void azimuth$invalidateRenderBoundingBox();
+
     SuperBlockEntityBehaviour[] azimuth$getSuperBehaviours();
 
     SuperBlockEntityBehaviour[] azimuth$searchSuperBehaviours();
@@ -31,7 +33,7 @@ public interface AzimuthSmartBlockEntityExtension {
 
     void azimuth$addCacheClearListener(Runnable cacheClearListener);
 
-    //Non-integrated caches
+    //Non-integrated caches TODO: remove the caches theyre kinda stooopid
     ItemRequirementBehaviourExtension[] azimuth$getItemRequirementExtensionCache();
 
     RenderedBehaviourExtension[] azimuth$getRenderedExtensionCache();

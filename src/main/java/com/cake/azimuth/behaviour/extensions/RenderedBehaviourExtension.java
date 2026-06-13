@@ -1,5 +1,6 @@
 package com.cake.azimuth.behaviour.extensions;
 
+import com.cake.azimuth.behaviour.AzimuthSmartBlockEntityExtension;
 import com.cake.azimuth.behaviour.BehaviourExtension;
 import com.cake.azimuth.behaviour.SuperBlockEntityBehaviour;
 import com.cake.azimuth.behaviour.render.BlockEntityBehaviourRenderer;
@@ -9,6 +10,7 @@ import dev.engine_room.flywheel.api.instance.Instance;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import dev.engine_room.flywheel.lib.visual.AbstractBlockEntityVisual;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
@@ -47,12 +49,23 @@ public interface RenderedBehaviourExtension extends BehaviourExtension {
         return null;
     }
 
+    default void invalidateRenderBoundingBox() {
+        final BlockEntity blockEntity = this.getBlockEntity();
+        if (blockEntity instanceof final AzimuthSmartBlockEntityExtension asbee) {
+            asbee.azimuth$invalidateRenderBoundingBox();
+        }
+    }
+
     interface BehaviourRenderSupplier extends Supplier<Supplier<? extends BlockEntityBehaviourRenderer<?>>> {
     }
 
     interface BehaviourVisualFactory {
         @Nullable
-        BehaviourVisual create(VisualizationContext context, SuperBlockEntityBehaviour behaviour, SmartBlockEntity blockEntity, AbstractBlockEntityVisual<?> parentVisual, float partialTick);
+        BehaviourVisual create(VisualizationContext context,
+                               SuperBlockEntityBehaviour behaviour,
+                               SmartBlockEntity blockEntity,
+                               AbstractBlockEntityVisual<?> parentVisual,
+                               float partialTick);
     }
 
     abstract class BehaviourVisual {
@@ -63,7 +76,7 @@ public interface RenderedBehaviourExtension extends BehaviourExtension {
         }
 
         protected BlockPos getVisualPosition() {
-            return parentVisual.getVisualPosition();
+            return this.parentVisual.getVisualPosition();
         }
 
         public void update(final float partialTick) {

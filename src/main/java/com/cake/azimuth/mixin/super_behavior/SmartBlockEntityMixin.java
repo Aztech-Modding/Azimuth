@@ -148,4 +148,9 @@ public abstract class SmartBlockEntityMixin extends CachedRenderBBBlockEntity im
         return this.azimuth$kineticBehaviourCacheAccess.get();
     }
 
+    @Override
+    public void azimuth$invalidateRenderBoundingBox() {
+        this.invalidateRenderBoundingBox();
+    }
+
 }
