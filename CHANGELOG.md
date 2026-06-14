@@ -24,3 +24,7 @@
 # 1.21.1-1.3.1
 
 - Added super block entity behavior removal listener
+
+# 1.21.1-1.3.2
+
+- Fixed render bound behaviors for cached block entity renderers
