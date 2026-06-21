@@ -6,6 +6,7 @@
     "AllBlocksMixin",
     "BlockBuilderItemOverrideMixin",
     "CreateAdvancementIdMixin",
+    "fix.RegistrateOTERFix",
     "ponder.PonderSceneRegistryMixin",
     "ponder.PonderTooltipHandlerAccessor",
     "ponder.PonderTooltipHandlerMixin",

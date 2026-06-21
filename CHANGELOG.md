@@ -28,3 +28,7 @@
 # 1.21.1-1.3.2
 
 - Fixed render bound behaviors for cached block entity renderers
+
+# 1.21.1-1.3.3
+
+- Include patch to Registrate to fix a race condition in one time event registration
