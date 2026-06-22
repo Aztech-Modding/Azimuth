@@ -32,3 +32,7 @@
 # 1.21.1-1.3.3
 
 - Include patch to Registrate to fix a race condition in one time event registration
+
+# 1.21.1-1.3.4
+
+- Fix callbacks not de-registering (Dev env issue)

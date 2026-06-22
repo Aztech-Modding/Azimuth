@@ -61,6 +61,7 @@ public class RegistrateOTERFix {
     ) {
         if (owner.getModEventBus() != null && !azimuth$flushedOwners.contains(owner)) {
             azimuth$flushedOwners.add(owner);
+            seenModBus = true;
 
             for (final Map.Entry<Class<?>, List<Pair<EventPriority, Consumer<?>>>> waitingListener : waitingModListeners.row(
                     owner).entrySet()) {
@@ -74,10 +75,17 @@ public class RegistrateOTERFix {
             OneTimeEventReceiver.addModListener(
                     owner,
                     FMLLoadCompleteEvent.class,
-                    RegistrateOTERFix::onLoadComplete
+                    RegistrateOTERFix::azimuth$onLoadCompleteMirrored
             );
-            seenModBus = true;
         }
+    }
+
+    @Unique
+    private static void azimuth$onLoadCompleteMirrored(final FMLLoadCompleteEvent event) {
+        event.enqueueWork(() -> {
+            toUnregister.forEach(t -> t.getLeft().unregister(t.getMiddle()));
+            toUnregister.clear();
+        });
     }
 
 }
