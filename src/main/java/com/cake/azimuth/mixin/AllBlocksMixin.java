@@ -19,7 +19,7 @@ public class AllBlocksMixin {
 
     @Inject(method = "<clinit>", at = @At("HEAD"))
     private static void azimuth$bootstrapBlockEdits(final CallbackInfo ci) {
-        CreateBlockEdits.bootstrapRegistrators();
+        CreateBlockEdits.bootstrapIfTheBootIsNotStrapped();
     }
 
     @WrapOperation(method = "<clinit>", at = @At(value = "INVOKE", target = "Lcom/simibubi/create/foundation/data/CreateRegistrate;block(Ljava/lang/String;Lcom/tterrag/registrate/util/nullness/NonNullFunction;)Lcom/tterrag/registrate/builders/BlockBuilder;"))

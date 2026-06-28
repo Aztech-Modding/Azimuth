@@ -36,3 +36,7 @@
 # 1.21.1-1.3.4
 
 - Fix callbacks not de-registering (Dev env issue)
+
+# 1.21.1-1.4.0
+
+- Harden pre-construct registration for visual interest with a special event listener system.
