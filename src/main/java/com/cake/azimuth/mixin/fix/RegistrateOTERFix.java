@@ -39,11 +39,6 @@ public class RegistrateOTERFix {
     @Final
     private static List<Triple<IEventBus, Object, Class<? extends Event>>> toUnregister;
 
-    @Shadow
-    private static void onLoadComplete(final FMLLoadCompleteEvent event) {
-        throw new UnsupportedOperationException("Implemented via mixin");
-    }
-
     @Unique
     private static final Set<AbstractRegistrate<?>> azimuth$flushedOwners = new HashSet<>();
 
