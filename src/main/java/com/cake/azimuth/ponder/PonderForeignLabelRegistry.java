@@ -2,6 +2,7 @@ package com.cake.azimuth.ponder;
 
 import net.minecraft.network.chat.Component;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,7 +27,7 @@ public class PonderForeignLabelRegistry {
      * @param label The label text to display (e.g., "BITS N BOBS"). Will be uppercased for microfont rendering.
      */
     public static void register(final String modId, final String label) {
-        REGISTERED_LABELS.put(modId, label.toUpperCase());
+        REGISTERED_LABELS.put(modId, label.toUpperCase(Locale.ROOT));
     }
 
     /**
@@ -38,7 +39,7 @@ public class PonderForeignLabelRegistry {
      * @param label The label component (e.g., Component.translatable("mymod.ponder.label"))
      */
     public static void register(final String modId, final Component label) {
-        REGISTERED_LABELS.put(modId, label.getString().toUpperCase());
+        REGISTERED_LABELS.put(modId, label.getString().toUpperCase(Locale.ROOT));
     }
 
     /**

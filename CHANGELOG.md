@@ -40,3 +40,7 @@
 # 1.21.1-1.4.0
 
 - Harden pre-construct registration for visual interest with a special event listener system.
+
+# 1.21.1-1.4.1
+
+- Fix missing Locale.ROOT for non-English locales
