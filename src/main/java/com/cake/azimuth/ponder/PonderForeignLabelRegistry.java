@@ -1,7 +1,5 @@
 package com.cake.azimuth.ponder;
 
-import net.minecraft.network.chat.Component;
-
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -18,28 +16,23 @@ public class PonderForeignLabelRegistry {
     private static final Map<String, String> REGISTERED_LABELS = new ConcurrentHashMap<>();
 
     /**
-     * Register a mod as a ponder labeling mod.
-     * When a ponder scene's namespace matches the given modId,
-     * but the item to be pondered does not match that modId,
-     * the label will be rendered below the scene title in microfont.
+     * Register a mod as a ponder labelling mod with a title.
      *
      * @param modId The mod's namespace (e.g., "bits_n_bobs")
-     * @param label The label text to display (e.g., "BITS N BOBS"). Will be uppercased for microfont rendering.
+     * @param label The label component of the canonical name of the mod (e.g., "Bits n Bobs"). Will be uppercased for microfont rendering.
      */
     public static void register(final String modId, final String label) {
         REGISTERED_LABELS.put(modId, label.toUpperCase(Locale.ROOT));
     }
 
+
     /**
-     * Register a mod as a ponder labeling mod with a translatable component.
-     * Use this for full localisation support — the component will be resolved
-     * at render time using the current locale.
+     * Register a mod as a ponder labelling mod with a title (derived from mod id).
      *
      * @param modId The mod's namespace (e.g., "bits_n_bobs")
-     * @param label The label component (e.g., Component.translatable("mymod.ponder.label"))
      */
-    public static void register(final String modId, final Component label) {
-        REGISTERED_LABELS.put(modId, label.getString().toUpperCase(Locale.ROOT));
+    public static void register(final String modId) {
+        REGISTERED_LABELS.put(modId, modId.replace("_", " "));
     }
 
     /**
