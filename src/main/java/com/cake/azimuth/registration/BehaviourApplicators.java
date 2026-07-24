@@ -47,6 +47,14 @@ public class BehaviourApplicators {
         PENDING_TYPE_APPLICATORS.add(new PendingTypeApplicator(typeSupplier, applicator));
     }
 
+    @SafeVarargs
+    public static void registerForTypes(final Function<SmartBlockEntity, List<BlockEntityBehaviour>> applicator,
+                                        final Supplier<? extends BlockEntityType<?>>... typeSupplier) {
+        for (final Supplier<? extends BlockEntityType<?>> supplier : typeSupplier) {
+            PENDING_TYPE_APPLICATORS.add(new PendingTypeApplicator(supplier, applicator));
+        }
+    }
+
     public static void resolveRegisteredTypes() {
         if (PENDING_TYPE_APPLICATORS.isEmpty()) {
             return;
@@ -73,9 +81,10 @@ public class BehaviourApplicators {
     }
 
     private record PendingTypeApplicator(
-            Supplier<? extends BlockEntityType<?>> typeSupplier,
-            Function<SmartBlockEntity, List<BlockEntityBehaviour>> applicator
+        Supplier<? extends BlockEntityType<?>> typeSupplier,
+        Function<SmartBlockEntity, List<BlockEntityBehaviour>> applicator
     ) {
+
     }
 
 }

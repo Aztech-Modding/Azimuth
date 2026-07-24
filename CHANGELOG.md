@@ -44,3 +44,7 @@
 # 1.21.1-1.4.1
 
 - Fix missing Locale.ROOT for non-English locales
+
+# 1.21.1-1.4.2
+
+- Improvements to Block Edit and Behaviour Applicator API
