@@ -48,3 +48,7 @@
 # 1.21.1-1.4.2
 
 - Improvements to Block Edit and Behaviour Applicator API
+
+# 1.21.1-1.4.3
+
+- Dedicated server related fixes
