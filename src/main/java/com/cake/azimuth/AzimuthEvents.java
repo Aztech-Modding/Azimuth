@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
 @EventBusSubscriber
@@ -27,7 +27,7 @@ public class AzimuthEvents {
     }
 
     @SubscribeEvent
-    public static void onItemUseOnBlock(final PlayerInteractEvent.RightClickBlock event) {
+    public static void onItemUseOnBlock(final UseItemOnBlockEvent event) {
         final BlockPos pos = event.getPos();
         final BlockEntity blockEntity = event.getLevel().getBlockEntity(pos);
         if (blockEntity instanceof final AzimuthSmartBlockEntityExtension asbee) {

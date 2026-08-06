@@ -10,7 +10,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -117,7 +117,7 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
                                     ", but it was not present or was not of the correct type." +
                                     (hasRegisteredApplicator ? "The block entity was registered and had a registered applicator for this type," :
                                             blockEntityPresent ? "The block entity was registered but did not have a registered applicator for this type," :
-                                            "No block entity was present at this position,") + " and the blockstate was " + level.getBlockState(
+                                                    "No block entity was present at this position,") + " and the blockstate was " + level.getBlockState(
                                     pos)
                     );
                 });
@@ -308,7 +308,7 @@ public abstract class SuperBlockEntityBehaviour extends BlockEntityBehaviour {
     public void onBlockBroken(final BlockEvent.BreakEvent event) {
     }
 
-    public void onItemUse(final PlayerInteractEvent.RightClickBlock event) {
+    public void onItemUse(final UseItemOnBlockEvent event) {
     }
 
     public void onBlockPlaced(final BlockEvent.EntityPlaceEvent event) {
