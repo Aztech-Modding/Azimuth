@@ -17,7 +17,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import org.jetbrains.annotations.Nullable;
-import org.joml.*;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Matrix4fc;
+import org.joml.Quaternionfc;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.Arrays;
