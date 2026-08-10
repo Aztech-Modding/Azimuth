@@ -19,25 +19,31 @@ public class VisualWrapperInterest {
     private static final List<Predicate<BlockEntityType<?>>> PENDING_TYPE_PREDICATES = new ArrayList<>();
 
     public static void registerInterest(final Predicate<BlockEntityType<?>> typePredicate) {
-        PENDING_TYPE_PREDICATES.add(typePredicate);
+        synchronized (PENDING_TYPE_PREDICATES) {
+            PENDING_TYPE_PREDICATES.add(typePredicate);
+        }
     }
 
     public static void registerInterest(final BlockEntityType<?> interestedType) {
-        PENDING_TYPE_PREDICATES.add(type -> type == interestedType);
+        synchronized (PENDING_TYPE_PREDICATES) {
+            PENDING_TYPE_PREDICATES.add(type -> type == interestedType);
+        }
     }
 
     public static boolean isInterested(final BlockEntityType<?> type) {
-        if (!registered) {
-            registered = true;
-            PreConstructEventHelper.post(new RegisterVisualWrapperInterestEvent());
-        }
-
-        for (final Predicate<BlockEntityType<?>> pending : PENDING_TYPE_PREDICATES) {
-            if (pending.test(type)) {
-                return true;
+        synchronized (PENDING_TYPE_PREDICATES) {
+            if (!registered) {
+                registered = true;
+                PreConstructEventHelper.post(new RegisterVisualWrapperInterestEvent());
             }
+
+            for (final Predicate<BlockEntityType<?>> pending : PENDING_TYPE_PREDICATES) {
+                if (pending.test(type)) {
+                    return true;
+                }
+            }
+            return false;
         }
-        return false;
     }
 
 }

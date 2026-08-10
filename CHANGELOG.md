@@ -52,3 +52,7 @@
 # 1.21.1-1.4.3
 
 - Dedicated server related fixes
+
+# 1.21.1-1.4.5
+
+- Ensure synchronised PENDING_TYPE_PREDICATES field
