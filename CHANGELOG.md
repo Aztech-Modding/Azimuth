@@ -56,3 +56,7 @@
 # 1.21.1-1.4.5
 
 - Ensure synchronised PENDING_TYPE_PREDICATES field
+- 
+# 1.21.1-1.4.6
+
+- Ensure item overrides apply above already supplied items
