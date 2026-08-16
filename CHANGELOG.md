@@ -60,3 +60,7 @@
 # 1.21.1-1.4.6
 
 - Ensure item overrides apply above already supplied items
+
+# 1.21.1-1.4.7
+
+- Fix Drill Drain ponder incompatability

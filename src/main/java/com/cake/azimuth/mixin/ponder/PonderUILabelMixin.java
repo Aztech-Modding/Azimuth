@@ -87,7 +87,7 @@ public class PonderUILabelMixin {
     private void azimuth$renderSceneSourceHint(final GuiGraphics graphics, final float fade, final PonderScene activeScene) {
         final String namespace = activeScene.getNamespace();
         final Optional<String> label = PonderForeignLabelRegistry.getLabel(namespace);
-        if (label.isEmpty() && !BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath().equals(namespace)) return;
+        if (label.isEmpty() || !BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath().equals(namespace)) return;
 
         final String title = activeScene.getTitle();
 
