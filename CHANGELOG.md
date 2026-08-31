@@ -56,7 +56,8 @@
 # 1.21.1-1.4.5
 
 - Ensure synchronised PENDING_TYPE_PREDICATES field
-- 
+-
+
 # 1.21.1-1.4.6
 
 - Ensure item overrides apply above already supplied items
@@ -64,3 +65,7 @@
 # 1.21.1-1.4.7
 
 - Fix Drill Drain ponder incompatability
+
+# 1.21.1-1.4.8
+
+- Improve error logging on class casting crash

@@ -15,18 +15,15 @@ public abstract class BlockEntityBehaviourRenderer<T extends SmartBlockEntity> {
                                final MultiBufferSource buffer,
                                final int light,
                                final int overlay) {
-        T castBlockEntity = null;
+        //TODO: hard requirement for the class match, generics are being erased
         try {
-            castBlockEntity = (T) blockEntity;
+            this.renderSafe(behaviour, (T) blockEntity, partialTicks, ms, buffer, light, overlay);
         } catch (final ClassCastException e) {
             throw new ClassCastException(
                     "BlockEntityBehaviourRenderer expected a block entity of a certain type, but got " +
                             blockEntity.getClass() +
-                            ", which was not within the bounds of this (" + this + ") renderer!");
-        } finally {
-            if (castBlockEntity != null) {
-                this.renderSafe(behaviour, castBlockEntity, partialTicks, ms, buffer, light, overlay);
-            }
+                            ", which was not within the bounds of this (" + this + ") renderer!" +
+                            " If possible, try find a way to exclude this block from the behaviour (like adding the forbidden tag for its use as a chain drive component for chain behaviours in bits n bobs)");
         }
     }
 
