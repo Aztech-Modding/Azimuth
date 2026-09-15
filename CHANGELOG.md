@@ -68,4 +68,8 @@
 
 # 1.21.1-1.4.8
 
-- Improve error logging on class casting crash
+- Improve error logging on class casting crashes
+
+# 1.21.1-1.4.9
+
+- Documented Tracks+ incompatability for lower versions
