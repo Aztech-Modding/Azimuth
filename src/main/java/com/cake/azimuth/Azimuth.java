@@ -25,6 +25,8 @@ public class Azimuth {
 
         AzContent.register();
         AzimuthData.addRegistrateData();
+
+        LOGGER.warn("Azimuth is present! I have a known incompatibility with the fork of tracks, tracks+ on lower versions, please update to at least 1.0.6b6 if you are using the fork");
     }
 
     public static ResourceLocation asResource(final String path) {

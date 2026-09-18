@@ -73,3 +73,8 @@
 # 1.21.1-1.4.9
 
 - Documented Tracks+ incompatability for lower versions
+
+# 1.21.1-1.4.9
+
+- Removed Tracks+ incompatability since normal tracks is fine and they have the same ID, duh...
+- Put the note in logs instead
