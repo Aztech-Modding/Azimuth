@@ -78,3 +78,4 @@
 
 - Removed Tracks+ incompatability since normal tracks is fine and they have the same ID, duh...
 - Put the note in logs instead
+- Hid the internal ponder coordinate block from the creative tabs and recipe viewers.
