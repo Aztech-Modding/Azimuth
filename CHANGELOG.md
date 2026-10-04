@@ -82,3 +82,4 @@
 
 - Hid the internal ponder coordinate block from the creative tabs and recipe viewers.
 - Updated licence in mod manifest.
+- Gave the ponder coordinate block a proper item texture

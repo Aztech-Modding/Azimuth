@@ -21,6 +21,7 @@ public class AzContent {
                             "block/ponder_coordinate"))
             ))
             .item()
+            .model((ctx, prov) -> prov.generated(ctx))
             .build()
             .register();
 

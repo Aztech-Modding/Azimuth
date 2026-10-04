@@ -1,3 +1,6 @@
 {
-  "parent": "azimuth:block/ponder_coordinate"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "azimuth:item/ponder_coordinate"
+  }
 }
