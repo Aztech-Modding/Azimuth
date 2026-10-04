@@ -18,14 +18,10 @@ public class Azimuth {
     public static final String MODID = "azimuth";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final CreateRegistrate REGISTRATE = createRegistrate();
+    public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
 
-    private static CreateRegistrate createRegistrate() {
-        final CreateRegistrate registrate = CreateRegistrate.create(MODID);
-        // Registrate defaults every item it registers to the minecraft:search creative tab. Azimuth only
-        // registers internal stuff, so opting out of that default keeps it out of the creative menu.
-        registrate.defaultCreativeTab((ResourceKey<CreativeModeTab>) null);
-        return registrate;
+    static {
+        REGISTRATE.defaultCreativeTab((ResourceKey<CreativeModeTab>) null);
     }
 
     public Azimuth(final IEventBus modEventBus, final ModContainer modContainer) {
