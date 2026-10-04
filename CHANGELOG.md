@@ -78,3 +78,4 @@
 
 - Removed Tracks+ incompatability since normal tracks is fine and they have the same ID, duh...
 - Put the note in logs instead
+- Gave the ponder coordinate block a proper item texture, it had none
