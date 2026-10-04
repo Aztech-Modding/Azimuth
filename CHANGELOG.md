@@ -56,7 +56,6 @@
 # 1.21.1-1.4.5
 
 - Ensure synchronised PENDING_TYPE_PREDICATES field
--
 
 # 1.21.1-1.4.6
 
@@ -78,4 +77,8 @@
 
 - Removed Tracks+ incompatability since normal tracks is fine and they have the same ID, duh...
 - Put the note in logs instead
+
+# 1.21.1-1.4.10
+
 - Hid the internal ponder coordinate block from the creative tabs and recipe viewers.
+- Updated licence in mod manifest.
